@@ -1,0 +1,345 @@
+---
+/**
+ * Page d'accueil - Optimisée pour le SEO et la conversion
+ * Cible les mots-clés principaux de la serrurerie à Versailles
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import CTASection from '@components/CTASection.astro';
+import ServiceCard from '@components/ServiceCard.astro';
+import CityCard from '@components/CityCard.astro';
+import { services, getServicesByUrgency } from '@data/services';
+import { getMainCities } from '@data/cities';
+
+const urgentServices = getServicesByUrgency('urgente');
+const featuredServices = services.slice(0, 6);
+const mainCities = getMainCities();
+
+const title = 'Serrurier à Versailles - Dépannage urgent 24h/24 dans les Yvelines (78)';
+const description = 'Serrurier professionnel à Versailles disponible 24h/24 et 7j/7. Ouverture de porte, changement de serrure, dépannage urgent. Intervention en 30 minutes. Devis gratuit.';
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Hero Section - Au-dessus de la ligne de flottaison -->
+  <section class="bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white py-16 md:py-24">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight">
+          Serrurier à Versailles
+          <span class="block text-primary-200 mt-2">Intervention rapide en 30 minutes</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-primary-100 mb-8 max-w-3xl mx-auto">
+          Service professionnel de serrurerie disponible 24h/24 et 7j/7 à Versailles et dans tout le département des Yvelines. Dépannage urgent, ouverture de porte, changement de serrure et sécurisation.
+        </p>
+
+        <!-- CTA Principal -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+          <a
+            href="tel:+33-1-XX-XX-XX-XX"
+            class="group bg-white text-primary-600 hover:bg-primary-50 px-8 py-5 rounded-xl font-bold text-xl transition-all hover:scale-105 shadow-2xl flex items-center gap-3 w-full sm:w-auto justify-center"
+          >
+            <svg class="w-7 h-7 group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+            </svg>
+            <span>01 XX XX XX XX</span>
+          </a>
+          <a
+            href="#devis"
+            class="border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-5 rounded-xl font-bold text-xl transition-all w-full sm:w-auto text-center"
+          >
+            Devis gratuit
+          </a>
+        </div>
+
+        <!-- Trust indicators -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+            <div class="text-3xl font-bold mb-1">24h/24</div>
+            <div class="text-sm text-primary-100">Service disponible</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+            <div class="text-3xl font-bold mb-1">30 min</div>
+            <div class="text-sm text-primary-100">Temps d'intervention</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+            <div class="text-3xl font-bold mb-1">15 ans</div>
+            <div class="text-sm text-primary-100">D'expérience</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+            <div class="text-3xl font-bold mb-1">100%</div>
+            <div class="text-sm text-primary-100">Clients satisfaits</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services d'urgence -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Services d'urgence disponibles maintenant
+        </h2>
+        <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+          Nos serruriers professionnels interviennent rapidement pour tous vos besoins urgents de serrurerie à Versailles et ses environs. Service disponible 24h/24, 7 jours sur 7, même les jours fériés.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        {urgentServices.map((service, index) => (
+          <div class="fade-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <ServiceCard service={service} featured={index === 0} />
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <a href="/services" class="inline-block bg-secondary-900 hover:bg-secondary-800 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105">
+          Découvrir tous nos services →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pourquoi nous choisir -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Pourquoi choisir notre service de serrurerie ?
+        </h2>
+        <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+          Expertise reconnue, intervention rapide et tarifs transparents font de nous le premier choix pour vos besoins en serrurerie à Versailles.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-heading font-bold text-secondary-900 mb-3">Intervention rapide</h3>
+          <p class="text-secondary-600">
+            Nos équipes sont disponibles 24h/24 et interviennent en moins de 30 minutes partout à Versailles et dans les communes environnantes. Service d'urgence garanti même les jours fériés.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-heading font-bold text-secondary-900 mb-3">Serruriers certifiés</h3>
+          <p class="text-secondary-600">
+            Tous nos serruriers sont certifiés et possèdent plus de 15 ans d'expérience. Ils maîtrisent toutes les techniques d'ouverture non destructive et l'installation de serrures certifiées A2P.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-heading font-bold text-secondary-900 mb-3">Tarifs transparents</h3>
+          <p class="text-secondary-600">
+            Devis gratuit par téléphone avant toute intervention. Pas de frais cachés, nos tarifs sont clairs et compétitifs. Possibilité de prise en charge par votre assurance habitation.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-heading font-bold text-secondary-900 mb-3">Matériel professionnel</h3>
+          <p class="text-secondary-600">
+            Nos véhicules sont équipés de tout le matériel nécessaire pour intervenir efficacement. Nous travaillons uniquement avec des marques reconnues pour leur fiabilité et leur sécurité.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-heading font-bold text-secondary-900 mb-3">Sécurité garantie</h3>
+          <p class="text-secondary-600">
+            Installation de serrures certifiées A2P conformes aux normes d'assurance. Conseils personnalisés pour renforcer la sécurité de votre domicile ou local professionnel.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-heading font-bold text-secondary-900 mb-3">Couverture locale</h3>
+          <p class="text-secondary-600">
+            Service disponible à Versailles et dans toutes les communes environnantes : Le Chesnay, Viroflay, Vélizy, Saint-Cyr, Jouy-en-Josas et bien d'autres. Zone d'intervention étendue.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tous les services -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Nos prestations de serrurerie à Versailles
+        </h2>
+        <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+          Du dépannage d'urgence à l'installation de systèmes de sécurité avancés, nous couvrons tous vos besoins en serrurerie pour particuliers et professionnels.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {featuredServices.map((service, index) => (
+          <div class="fade-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <ServiceCard service={service} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Zones d'intervention -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Serrurier dans tout le secteur de Versailles
+        </h2>
+        <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+          Notre service de serrurerie couvre Versailles et toutes les communes environnantes des Yvelines avec des temps d'intervention garantis.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+        {mainCities.slice(0, 6).map((city, index) => (
+          <div class="fade-on-scroll" style={`animation-delay: ${index * 100}ms`}>
+            <CityCard city={city} />
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <a href="/villes" class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105">
+          Voir toutes nos zones d'intervention →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="devis" class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <CTASection variant="emergency" showForm={true} />
+    </div>
+  </section>
+
+  <!-- FAQ Section pour SEO -->
+  <section class="py-16 md:py-20 bg-gray-50">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Questions fréquentes sur la serrurerie à Versailles
+        </h2>
+      </div>
+
+      <div class="space-y-6">
+        <details class="bg-white rounded-lg shadow-md p-6 group">
+          <summary class="font-heading font-bold text-lg text-secondary-900 cursor-pointer list-none flex items-center justify-between">
+            Combien coûte une ouverture de porte à Versailles ?
+            <svg class="w-5 h-5 text-primary-600 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <p class="mt-4 text-secondary-600">
+            Le tarif pour une ouverture de porte claquée sans casse à Versailles commence à partir de 89€. Ce prix comprend le déplacement et l'intervention. Pour une porte fermée à clé ou une serrure plus complexe, le tarif peut varier. Nous vous communiquons toujours un devis clair par téléphone avant l'intervention.
+          </p>
+        </details>
+
+        <details class="bg-white rounded-lg shadow-md p-6 group">
+          <summary class="font-heading font-bold text-lg text-secondary-900 cursor-pointer list-none flex items-center justify-between">
+            Intervenez-vous vraiment en 30 minutes ?
+            <svg class="w-5 h-5 text-primary-600 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <p class="mt-4 text-secondary-600">
+            Oui, nous garantissons un temps d'intervention moyen de 20 à 30 minutes pour le secteur de Versailles et les communes limitrophes comme Le Chesnay, Viroflay ou Vélizy. Nos serruriers sont positionnés stratégiquement dans le secteur pour assurer une réactivité optimale, même en cas d'urgence nocturne.
+          </p>
+        </details>
+
+        <details class="bg-white rounded-lg shadow-md p-6 group">
+          <summary class="font-heading font-bold text-lg text-secondary-900 cursor-pointer list-none flex items-center justify-between">
+            Quelles sont les marques de serrures que vous installez ?
+            <svg class="w-5 h-5 text-primary-600 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <p class="mt-4 text-secondary-600">
+            Nous travaillons avec les marques leaders du marché de la serrurerie : Fichet, Picard, Vachette, Bricard, Abus, et bien d'autres. Toutes les serrures que nous installons sont certifiées A2P pour garantir une sécurité optimale et répondre aux exigences des compagnies d'assurance.
+          </p>
+        </details>
+
+        <details class="bg-white rounded-lg shadow-md p-6 group">
+          <summary class="font-heading font-bold text-lg text-secondary-900 cursor-pointer list-none flex items-center justify-between">
+            Mon assurance peut-elle prendre en charge l'intervention ?
+            <svg class="w-5 h-5 text-primary-600 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <p class="mt-4 text-secondary-600">
+            Dans la plupart des cas, oui. Si vous possédez une assurance habitation avec garantie "dommages aux biens" ou "assistance dépannage", l'ouverture de porte peut être prise en charge. Nous vous fournissons une facture détaillée que vous pouvez transmettre à votre assureur pour remboursement. Contactez votre assurance pour connaître les modalités exactes.
+          </p>
+        </details>
+
+        <details class="bg-white rounded-lg shadow-md p-6 group">
+          <summary class="font-heading font-bold text-lg text-secondary-900 cursor-pointer list-none flex items-center justify-between">
+            Que faire en cas de cambriolage à Versailles ?
+            <svg class="w-5 h-5 text-primary-600 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <p class="mt-4 text-secondary-600">
+            En cas de cambriolage, contactez d'abord la police ou la gendarmerie pour déposer plainte. Ensuite, appelez-nous pour une intervention d'urgence afin de sécuriser votre domicile. Nous remplaçons immédiatement vos serrures endommagées et pouvons installer des systèmes de sécurité renforcés. Nous vous fournissons tous les documents nécessaires pour votre déclaration d'assurance.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust section finale -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto bg-gradient-to-br from-secondary-900 to-secondary-800 rounded-2xl p-8 md:p-12 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold mb-6">
+          Votre expert serrurier à Versailles
+        </h2>
+        <p class="text-lg text-secondary-100 mb-8 max-w-3xl mx-auto">
+          Depuis plus de 15 ans, nous accompagnons les habitants de Versailles et des Yvelines pour tous leurs besoins en serrurerie. Notre engagement : des interventions rapides, des tarifs transparents et un service de qualité professionnelle.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="tel:+33-1-XX-XX-XX-XX" class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105 shadow-xl w-full sm:w-auto">
+            Appeler maintenant
+          </a>
+          <a href="/contact" class="border-2 border-white hover:bg-white hover:text-secondary-900 px-8 py-4 rounded-lg font-bold text-lg transition-all w-full sm:w-auto">
+            Demander un devis
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

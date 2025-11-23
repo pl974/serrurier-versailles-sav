@@ -1,0 +1,166 @@
+---
+/**
+ * Page listant tous les services de serrurerie
+ * Optimisée pour le SEO avec rich content
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ServiceCard from '@components/ServiceCard.astro';
+import CTASection from '@components/CTASection.astro';
+import { services, getServicesByUrgency } from '@data/services';
+
+const urgentServices = getServicesByUrgency('urgente');
+const standardServices = getServicesByUrgency('standard');
+const plannableServices = getServicesByUrgency('planifiable');
+
+const title = 'Tous nos services de serrurerie à Versailles - Expert 24h/24';
+const description = 'Découvrez tous nos services de serrurerie à Versailles : ouverture de porte, changement de serrure, blindage, dépannage urgent. Intervention rapide 7j/7.';
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-secondary-900 to-secondary-800 text-white py-16 md:py-20">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-heading font-bold mb-6">
+          Nos services de serrurerie à Versailles
+        </h1>
+        <p class="text-xl text-secondary-100 mb-8">
+          Du dépannage d'urgence 24h/24 aux installations de sécurité sur mesure, découvrez l'ensemble de nos prestations de serrurerie professionnelle à Versailles et dans les Yvelines.
+        </p>
+        <a href="tel:+33-1-XX-XX-XX-XX" class="inline-flex items-center gap-3 bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105 shadow-xl">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          Urgence : 01 XX XX XX XX
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services d'urgence -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Services d'urgence disponibles 24h/24
+        </h2>
+        <p class="text-lg text-secondary-600">
+          Porte claquée, clé perdue ou cassée, serrure bloquée ? Nos serruriers interviennent en urgence 24 heures sur 24, 7 jours sur 7, même les jours fériés. Temps d'intervention garanti en moins de 30 minutes sur Versailles et ses environs.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {urgentServices.map(service => (
+          <ServiceCard service={service} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services standards -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Prestations standards de serrurerie
+        </h2>
+        <p class="text-lg text-secondary-600">
+          Services de serrurerie quotidiens pour l'entretien et la réparation de vos serrures et systèmes de fermeture. Intervention rapide avec possibilité de prise de rendez-vous selon vos disponibilités.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {standardServices.map(service => (
+          <ServiceCard service={service} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services planifiables -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Installation et sécurisation sur mesure
+        </h2>
+        <p class="text-lg text-secondary-600">
+          Renforcez la sécurité de votre habitation ou de vos locaux professionnels avec nos solutions de sécurisation avancées. Nos experts vous conseillent et installent des systèmes certifiés adaptés à vos besoins.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {plannableServices.map(service => (
+          <ServiceCard service={service} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section contenu SEO -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <div class="prose prose-lg max-w-none">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-6">
+          Expert en serrurerie à Versailles et dans les Yvelines
+        </h2>
+
+        <div class="bg-white rounded-xl p-8 shadow-lg mb-8">
+          <h3 class="text-2xl font-heading font-bold text-secondary-900 mb-4">
+            Votre serrurier de confiance pour tous vos besoins
+          </h3>
+          <p class="text-secondary-700 mb-4">
+            Depuis plus de 15 ans, notre entreprise de serrurerie intervient à Versailles et dans tout le département des Yvelines pour répondre à tous vos besoins en matière de serrurerie, de dépannage d'urgence et de sécurisation. Que vous soyez un particulier ou un professionnel, nous mettons notre expertise à votre service pour garantir la sécurité de vos biens.
+          </p>
+          <p class="text-secondary-700 mb-4">
+            Notre équipe de <strong>serruriers professionnels certifiés</strong> dispose de tout le matériel nécessaire pour intervenir rapidement et efficacement sur tous types de serrures : serrures à cylindre, serrures multipoints, serrures carénées, serrures électroniques, et bien d'autres. Nous travaillons exclusivement avec des marques reconnues pour leur fiabilité comme Fichet, Picard, Vachette ou Bricard.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-lg mb-8">
+          <h3 class="text-2xl font-heading font-bold text-secondary-900 mb-4">
+            Dépannage en urgence 24h/24 et 7j/7
+          </h3>
+          <p class="text-secondary-700 mb-4">
+            Un problème de serrure peut survenir à tout moment. C'est pourquoi notre <strong>service d'urgence est disponible 24 heures sur 24</strong>, tous les jours de l'année, y compris les dimanches et jours fériés. Porte claquée, clé cassée dans la serrure, serrure bloquée après une tentative d'effraction : nos serruriers interviennent rapidement pour résoudre votre problème.
+          </p>
+          <p class="text-secondary-700 mb-4">
+            Nous garantissons un <strong>temps d'intervention de moins de 30 minutes</strong> sur Versailles et les communes environnantes. Nos équipes sont stratégiquement positionnées pour assurer une réactivité optimale à toute heure du jour et de la nuit.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-lg mb-8">
+          <h3 class="text-2xl font-heading font-bold text-secondary-900 mb-4">
+            Installation de serrures certifiées A2P
+          </h3>
+          <p class="text-secondary-700 mb-4">
+            Pour renforcer la sécurité de votre domicile ou de vos locaux professionnels, nous installons des <strong>serrures certifiées A2P</strong> (Assurance Prévention Protection). Cette certification garantit la résistance de la serrure aux tentatives d'effraction et est reconnue par toutes les compagnies d'assurance.
+          </p>
+          <p class="text-secondary-700 mb-4">
+            Les serrures A2P existent en trois niveaux de sécurité : A2P*, A2P** et A2P***, correspondant respectivement à 5, 10 et 15 minutes de résistance à l'effraction. Nos experts vous conseillent sur le niveau de protection adapté à vos besoins et votre budget.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-lg">
+          <h3 class="text-2xl font-heading font-bold text-secondary-900 mb-4">
+            Tarifs transparents et devis gratuit
+          </h3>
+          <p class="text-secondary-700 mb-4">
+            Nous pratiquons une politique de <strong>tarifs transparents</strong> sans frais cachés. Avant toute intervention, nous vous communiquons un devis clair et détaillé par téléphone. Vous connaissez ainsi le montant exact de la prestation avant que nos serruriers ne se déplacent.
+          </p>
+          <p class="text-secondary-700">
+            Nos tarifs sont compétitifs et adaptés au marché local. De plus, nos interventions peuvent être prises en charge par votre assurance habitation dans le cadre de la garantie dommages aux biens. Nous vous fournissons tous les documents nécessaires pour votre déclaration.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <CTASection variant="primary" showForm={true} />
+    </div>
+  </section>
+</BaseLayout>

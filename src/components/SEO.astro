@@ -1,0 +1,122 @@
+---
+/**
+ * Composant SEO pour gérer les métadonnées et le schema markup
+ * Optimisé pour le référencement local et les featured snippets
+ */
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  schema?: any;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical = Astro.url.href,
+  ogImage = '/images/og-default.webp',
+  schema,
+  noindex = false
+} = Astro.props;
+
+const siteName = 'Serrurier Versailles SAV';
+const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+
+// Schema.org pour le local business
+const defaultSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Locksmith',
+  name: 'Serrurier Versailles SAV',
+  description: 'Service de serrurerie professionnel à Versailles et ses environs. Dépannage urgent 24h/24, ouverture de porte, changement de serrure.',
+  url: 'https://serrurier-versailles-sav.fr',
+  telephone: '+33-1-XX-XX-XX-XX',
+  priceRange: '€€',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Versailles',
+    addressLocality: 'Versailles',
+    postalCode: '78000',
+    addressCountry: 'FR'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 48.8049,
+    longitude: 2.1204
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '00:00',
+    closes: '23:59'
+  },
+  areaServed: {
+    '@type': 'City',
+    name: 'Versailles'
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Services de serrurerie',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Ouverture de porte'
+        }
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Changement de serrure'
+        }
+      }
+    ]
+  }
+};
+
+const schemaData = schema || defaultSchema;
+---
+
+<!-- Métadonnées essentielles -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- SEO -->
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content="fr_FR" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonical} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Preconnect pour les performances -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- Fonts optimisés -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />

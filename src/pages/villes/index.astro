@@ -1,0 +1,160 @@
+---
+/**
+ * Page listant toutes les villes desservies
+ * Optimisée pour le SEO local
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import CityCard from '@components/CityCard.astro';
+import CTASection from '@components/CTASection.astro';
+import { cities, getCitiesByInterventionTime } from '@data/cities';
+
+const sortedCities = getCitiesByInterventionTime();
+
+const title = 'Serrurier dans les Yvelines (78) - Toutes nos zones d\'intervention';
+const description = 'Service de serrurerie professionnel disponible 24h/24 à Versailles, Le Chesnay, Viroflay, Vélizy-Villacoublay et dans tout le département des Yvelines. Intervention rapide garantie.';
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-secondary-900 to-secondary-800 text-white py-16 md:py-20">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-heading font-bold mb-6">
+          Serrurier dans les Yvelines
+        </h1>
+        <p class="text-xl text-secondary-100 mb-8">
+          Service professionnel de serrurerie disponible 24h/24 et 7j/7 à Versailles et dans toutes les communes environnantes du département des Yvelines (78). Intervention rapide garantie en moins de 30 minutes.
+        </p>
+        <a href="tel:+33-1-XX-XX-XX-XX" class="inline-flex items-center gap-3 bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105 shadow-xl">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          Urgence : 01 XX XX XX XX
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Carte des villes -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Nos zones d'intervention dans les Yvelines
+        </h2>
+        <p class="text-lg text-secondary-600">
+          Notre réseau de serruriers professionnels couvre l'ensemble de l'agglomération versaillaise et les communes environnantes. Nous intervenons rapidement pour tous vos besoins de serrurerie, du dépannage d'urgence à l'installation de systèmes de sécurité.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedCities.map((city, index) => (
+          <div class="fade-on-scroll" style={`animation-delay: ${index * 50}ms`}>
+            <CityCard city={city} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Avantages couverture locale -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-12 text-center">
+          Pourquoi choisir un serrurier local ?
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-xl p-8 shadow-lg text-center">
+            <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-secondary-900 mb-4">Intervention ultra-rapide</h3>
+            <p class="text-secondary-600">
+              Nos serruriers sont basés localement dans les Yvelines, ce qui nous permet d'intervenir en moins de 30 minutes partout à Versailles et ses environs.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl p-8 shadow-lg text-center">
+            <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-secondary-900 mb-4">Connaissance du secteur</h3>
+            <p class="text-secondary-600">
+              Nous connaissons parfaitement le secteur de Versailles et des Yvelines, ce qui nous permet d'optimiser nos déplacements et d'arriver au plus vite chez vous.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl p-8 shadow-lg text-center">
+            <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-secondary-900 mb-4">Tarifs adaptés</h3>
+            <p class="text-secondary-600">
+              Pas de frais de déplacement excessifs. Nos tarifs sont adaptés au marché local et restent compétitifs tout en garantissant un service de qualité.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenu SEO -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <div class="prose prose-lg max-w-none">
+        <div class="bg-white rounded-xl p-8 shadow-lg mb-8">
+          <h2 class="text-3xl font-heading font-bold text-secondary-900 mb-6">
+            Serrurier professionnel dans les Yvelines (78)
+          </h2>
+          <p class="text-secondary-700 mb-4">
+            Notre entreprise de <strong>serrurerie professionnelle</strong> intervient dans tout le département des Yvelines, avec une expertise particulière sur le secteur de Versailles et ses communes limitrophes. Que vous habitiez à Versailles centre, au Chesnay-Rocquencourt, à Viroflay, Vélizy-Villacoublay, Saint-Cyr-l'École ou dans l'une des nombreuses communes de l'agglomération versaillaise, nos serruriers sont à votre service 24h/24.
+          </p>
+          <p class="text-secondary-700 mb-4">
+            Avec plus de 15 ans d'expérience dans la serrurerie d'urgence et l'installation de systèmes de sécurité, nous avons développé une connaissance approfondie du secteur. Nous connaissons les spécificités architecturales des différentes communes des Yvelines, des immeubles haussmanniens du centre de Versailles aux pavillons résidentiels des communes périphériques.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-lg mb-8">
+          <h3 class="text-2xl font-heading font-bold text-secondary-900 mb-4">
+            Service d'urgence disponible partout dans les Yvelines
+          </h3>
+          <p class="text-secondary-700 mb-4">
+            Notre <strong>service d'urgence 24h/24</strong> couvre l'ensemble de nos zones d'intervention. Porte claquée en pleine nuit au Chesnay ? Serrure cassée après une tentative d'effraction à Viroflay ? Clé perdue le dimanche à Vélizy ? Nos équipes interviennent rapidement, à toute heure du jour et de la nuit, même les jours fériés.
+          </p>
+          <p class="text-secondary-700 mb-4">
+            Nous garantissons un <strong>temps d'intervention de moins de 30 minutes</strong> sur le secteur de Versailles et ses environs immédiats. Pour les communes plus éloignées, nous vous communiquons un délai précis lors de votre appel. Nos véhicules d'intervention sont équipés de tout le matériel nécessaire pour résoudre la majorité des problèmes de serrurerie sur place.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-8 shadow-lg">
+          <h3 class="text-2xl font-heading font-bold text-secondary-900 mb-4">
+            Tous vos besoins en serrurerie dans les Yvelines
+          </h3>
+          <p class="text-secondary-700 mb-4">
+            Au-delà du dépannage d'urgence, nous proposons une gamme complète de <strong>services de serrurerie</strong> pour particuliers et professionnels : changement de serrure, installation de serrures multipoints certifiées A2P, blindage de porte, reproduction de clés, installation de serrures électroniques, sécurisation de locaux commerciaux, et bien plus encore.
+          </p>
+          <p class="text-secondary-700">
+            Nos serruriers certifiés vous conseillent sur les meilleures solutions pour sécuriser votre habitation ou vos locaux professionnels. Nous travaillons avec les marques leaders du marché (Fichet, Picard, Vachette, Bricard) et proposons uniquement des produits certifiés conformes aux normes d'assurance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="container mx-auto px-4">
+      <CTASection variant="primary" showForm={true} />
+    </div>
+  </section>
+</BaseLayout>
