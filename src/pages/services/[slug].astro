@@ -7,8 +7,14 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import CTASection from '@components/CTASection.astro';
 import ServiceCard from '@components/ServiceCard.astro';
+import Testimonial from '@components/Testimonial.astro';
+import ProcessSteps from '@components/ProcessSteps.astro';
+import ImageGallery from '@components/ImageGallery.astro';
+import FloatingCTA from '@components/FloatingCTA.astro';
 import { services, getServiceBySlug } from '@data/services';
 import { cities } from '@data/cities';
+import { testimonials, getTestimonialsByService } from '@data/testimonials';
+import { galleryImages } from '@data/gallery';
 
 export async function getStaticPaths() {
   return services.map(service => ({
@@ -20,6 +26,8 @@ export async function getStaticPaths() {
 const { service } = Astro.props;
 const relatedServices = services.filter(s => s.id !== service.id && s.urgency === service.urgency).slice(0, 3);
 const mainCities = cities.slice(0, 6);
+const serviceTestimonials = getTestimonialsByService(service.title).slice(0, 3);
+const serviceImages = galleryImages.slice(0, 6);
 
 const title = `${service.title} à Versailles - ${service.price} | Serrurier Expert`;
 const description = `${service.description} ${service.benefits.slice(0, 2).join('. ')}. Devis gratuit.`;
@@ -179,6 +187,60 @@ const serviceSchema = {
     </div>
   </section>
 
+  <!-- Galerie d'images -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+            Nos réalisations en images
+          </h2>
+          <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+            Découvrez quelques exemples de nos interventions pour {service.title.toLowerCase()}.
+          </p>
+        </div>
+
+        <ImageGallery
+          images={serviceImages}
+          columns={3}
+          showTitles={false}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignages -->
+  {serviceTestimonials.length > 0 && (
+    <section class="py-16 md:py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+              Avis clients sur ce service
+            </h2>
+            <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+              Découvrez ce que nos clients disent de notre service de {service.title.toLowerCase()}.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {serviceTestimonials.map((testimonial) => (
+              <Testimonial
+                name={testimonial.name}
+                city={testimonial.city}
+                rating={testimonial.rating}
+                comment={testimonial.comment}
+                service={testimonial.service}
+                date={testimonial.date}
+                verified={testimonial.verified}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- Services connexes -->
   {relatedServices.length > 0 && (
     <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
@@ -215,4 +277,7 @@ const serviceSchema = {
       />
     </div>
   </section>
+
+  <!-- Bouton CTA flottant -->
+  <FloatingCTA variant="both" />
 </BaseLayout>

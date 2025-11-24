@@ -1,0 +1,112 @@
+---
+/**
+ * Composant de badges de confiance
+ * Affiche les certifications, garanties et trust indicators
+ */
+
+interface Props {
+  variant?: 'horizontal' | 'grid';
+  showCertifications?: boolean;
+  showGuarantees?: boolean;
+  showPayments?: boolean;
+}
+
+const {
+  variant = 'grid',
+  showCertifications = true,
+  showGuarantees = true,
+  showPayments = false
+} = Astro.props;
+---
+
+<div class={variant === 'grid' ? 'grid grid-cols-2 md:grid-cols-4 gap-6' : 'flex flex-wrap items-center justify-center gap-8'}>
+  {showCertifications && (
+    <>
+      <!-- Certification A2P -->
+      <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <div class="w-16 h-16 mb-3 flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 rounded-full">
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <div class="text-center">
+          <div class="font-bold text-secondary-900 text-sm">Certifié A2P</div>
+          <div class="text-xs text-secondary-600">Serrures agréées</div>
+        </div>
+      </div>
+
+      <!-- Assurance pro -->
+      <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <div class="w-16 h-16 mb-3 flex items-center justify-center bg-gradient-to-br from-green-500 to-green-600 rounded-full">
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <div class="text-center">
+          <div class="font-bold text-secondary-900 text-sm">Assuré RC Pro</div>
+          <div class="text-xs text-secondary-600">Garantie décennale</div>
+        </div>
+      </div>
+    </>
+  )}
+
+  {showGuarantees && (
+    <>
+      <!-- Intervention rapide -->
+      <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <div class="w-16 h-16 mb-3 flex items-center justify-center bg-gradient-to-br from-red-500 to-red-600 rounded-full">
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div class="text-center">
+          <div class="font-bold text-secondary-900 text-sm">30 min max</div>
+          <div class="text-xs text-secondary-600">Intervention rapide</div>
+        </div>
+      </div>
+
+      <!-- Satisfaction garantie -->
+      <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <div class="w-16 h-16 mb-3 flex items-center justify-center bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full">
+          <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+        </div>
+        <div class="text-center">
+          <div class="font-bold text-secondary-900 text-sm">100% Satisfait</div>
+          <div class="text-xs text-secondary-600">Ou remboursé</div>
+        </div>
+      </div>
+    </>
+  )}
+
+  {showPayments && (
+    <>
+      <!-- Paiement CB -->
+      <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <div class="w-16 h-16 mb-3 flex items-center justify-center bg-gradient-to-br from-purple-500 to-purple-600 rounded-full">
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+          </svg>
+        </div>
+        <div class="text-center">
+          <div class="font-bold text-secondary-900 text-sm">Paiement CB</div>
+          <div class="text-xs text-secondary-600">Sur place</div>
+        </div>
+      </div>
+
+      <!-- Devis gratuit -->
+      <div class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <div class="w-16 h-16 mb-3 flex items-center justify-center bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full">
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </div>
+        <div class="text-center">
+          <div class="font-bold text-secondary-900 text-sm">Devis gratuit</div>
+          <div class="text-xs text-secondary-600">Sans engagement</div>
+        </div>
+      </div>
+    </>
+  )}
+</div>

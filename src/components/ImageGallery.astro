@@ -1,0 +1,72 @@
+---
+/**
+ * Composant de galerie d'images réutilisable
+ * Affiche une grille d'images avec effet hover
+ */
+
+interface Image {
+  src: string;
+  alt: string;
+  title?: string;
+  category?: string;
+}
+
+interface Props {
+  images: Image[];
+  columns?: 2 | 3 | 4;
+  showTitles?: boolean;
+}
+
+const {
+  images,
+  columns = 3,
+  showTitles = false
+} = Astro.props;
+
+const gridCols = {
+  2: 'grid-cols-1 md:grid-cols-2',
+  3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+  4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+};
+---
+
+<div class={`grid ${gridCols[columns]} gap-6`}>
+  {images.map((image, index) => (
+    <div
+      class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 fade-on-scroll"
+      style={`animation-delay: ${index * 100}ms`}
+    >
+      <div class="aspect-[4/3] bg-gray-200 overflow-hidden">
+        <img
+          src={image.src}
+          alt={image.alt}
+          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
+        />
+      </div>
+
+      {/* Overlay avec titre au hover */}
+      {(showTitles || image.title || image.category) && (
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+          {image.category && (
+            <div class="text-primary-400 text-sm font-semibold mb-2 uppercase tracking-wider">
+              {image.category}
+            </div>
+          )}
+          {image.title && (
+            <h3 class="text-white text-xl font-heading font-bold">
+              {image.title}
+            </h3>
+          )}
+        </div>
+      )}
+
+      {/* Badge de catégorie sans hover */}
+      {!showTitles && image.category && (
+        <div class="absolute top-4 left-4 bg-primary-600 text-white px-3 py-1 rounded-lg text-sm font-semibold shadow-lg">
+          {image.category}
+        </div>
+      )}
+    </div>
+  ))}
+</div>

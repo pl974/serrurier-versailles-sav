@@ -1,0 +1,331 @@
+---
+/**
+ * Page À propos - Présentation de l'entreprise
+ * Renforce la confiance et l'expertise
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Stats from '@components/Stats.astro';
+import TrustBadges from '@components/TrustBadges.astro';
+import CTASection from '@components/CTASection.astro';
+import ProcessSteps from '@components/ProcessSteps.astro';
+import FloatingCTA from '@components/FloatingCTA.astro';
+
+const title = 'À propos - Serrurier Versailles SAV | Expert depuis 15 ans';
+const description = 'Découvrez Serrurier Versailles SAV, votre expert en serrurerie depuis plus de 15 ans. Serruriers certifiés, interventions rapides et tarifs transparents.';
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-secondary-900 to-secondary-800 text-white py-16 md:py-24">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+          Votre serrurier de confiance à Versailles
+        </h1>
+        <p class="text-xl md:text-2xl text-secondary-100 mb-8">
+          Plus de 15 ans d'expertise au service de votre sécurité et de votre tranquillité
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notre histoire -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-6">
+              Notre histoire
+            </h2>
+            <div class="space-y-4 text-secondary-700 leading-relaxed">
+              <p>
+                Fondée en 2010, Serrurier Versailles SAV est née de la volonté de proposer un service de serrurerie professionnel, transparent et accessible à tous les habitants de Versailles et ses environs.
+              </p>
+              <p>
+                Face aux pratiques abusives de certains acteurs du secteur, nous avons fait le choix de la transparence : tarifs clairs annoncés avant intervention, pas de frais cachés, et un service disponible 24h/24 sans majoration excessive.
+              </p>
+              <p>
+                Aujourd'hui, avec plus de 5000 interventions réussies et une équipe de serruriers certifiés, nous sommes fiers d'être la référence en matière de serrurerie dans les Yvelines.
+              </p>
+            </div>
+          </div>
+          <div class="bg-gradient-to-br from-primary-50 to-white rounded-2xl p-8 shadow-xl">
+            <div class="space-y-6">
+              <div class="flex items-center gap-4">
+                <div class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-3xl font-bold text-primary-600">2010</div>
+                  <div class="text-secondary-600">Année de création</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-3xl font-bold text-primary-600">8</div>
+                  <div class="text-secondary-600">Serruriers qualifiés</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-3xl font-bold text-primary-600">5000+</div>
+                  <div class="text-secondary-600">Clients satisfaits</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nos valeurs -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+            Nos valeurs
+          </h2>
+          <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+            Ce qui guide notre action au quotidien pour vous offrir le meilleur service
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="bg-white rounded-xl p-8 shadow-lg text-center hover:shadow-xl transition-shadow">
+            <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-secondary-900 mb-3">Confiance</h3>
+            <p class="text-secondary-600">
+              Transparence totale sur nos tarifs et nos interventions. Pas de surprise, pas de frais cachés.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl p-8 shadow-lg text-center hover:shadow-xl transition-shadow">
+            <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-secondary-900 mb-3">Réactivité</h3>
+            <p class="text-secondary-600">
+              Intervention en moins de 30 minutes à Versailles. Service d'urgence disponible 24h/24.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl p-8 shadow-lg text-center hover:shadow-xl transition-shadow">
+            <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-secondary-900 mb-3">Qualité</h3>
+            <p class="text-secondary-600">
+              Serruriers certifiés, matériel professionnel et serrures de marques reconnues uniquement.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl p-8 shadow-lg text-center hover:shadow-xl transition-shadow">
+            <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-heading font-bold text-secondary-900 mb-3">Prix justes</h3>
+            <p class="text-secondary-600">
+              Tarifs compétitifs et équitables. Nous privilégions la satisfaction client au profit immédiat.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistiques -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+            Notre expertise en chiffres
+          </h2>
+        </div>
+        <Stats
+          stats={[
+            {
+              value: '15',
+              label: 'Ans d\'expérience',
+              suffix: '+',
+              description: 'Dans la serrurerie'
+            },
+            {
+              value: '5000',
+              label: 'Interventions',
+              suffix: '+',
+              description: 'Réalisées avec succès'
+            },
+            {
+              value: '98',
+              label: 'Satisfaction',
+              suffix: '%',
+              description: 'Taux de satisfaction client'
+            },
+            {
+              value: '24',
+              label: 'Disponibilité',
+              suffix: 'h/24',
+              description: 'Service d\'urgence'
+            },
+            {
+              value: '9',
+              label: 'Communes',
+              suffix: '',
+              description: 'Zones d\'intervention'
+            },
+            {
+              value: '20',
+              label: 'Minutes',
+              suffix: '',
+              description: 'Temps d\'intervention moyen'
+            }
+          ]}
+          variant="colorful"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications et garanties -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+            Certifications et garanties
+          </h2>
+          <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+            Notre professionnalisme reconnu par les organismes officiels
+          </p>
+        </div>
+
+        <TrustBadges
+          variant="grid"
+          showCertifications={true}
+          showGuarantees={true}
+          showPayments={true}
+        />
+
+        <div class="mt-12 bg-white rounded-xl p-8 shadow-lg">
+          <h3 class="text-2xl font-heading font-bold text-secondary-900 mb-6 text-center">
+            Nos engagements qualité
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex items-start gap-4">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <div>
+                <h4 class="font-bold text-secondary-900 mb-1">Serruriers certifiés</h4>
+                <p class="text-secondary-600 text-sm">Tous nos serruriers sont formés et certifiés par les plus grandes marques du secteur.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <div>
+                <h4 class="font-bold text-secondary-900 mb-1">Matériel professionnel</h4>
+                <p class="text-secondary-600 text-sm">Véhicules équipés du matériel nécessaire pour toutes les interventions.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <div>
+                <h4 class="font-bold text-secondary-900 mb-1">Garantie interventions</h4>
+                <p class="text-secondary-600 text-sm">Toutes nos interventions sont garanties. Si un problème survient, nous revenons gratuitement.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <svg class="w-6 h-6 text-primary-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <div>
+                <h4 class="font-bold text-secondary-900 mb-1">Assurance décennale</h4>
+                <p class="text-secondary-600 text-sm">Nous disposons d'une assurance responsabilité civile professionnelle et décennale.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zone d'intervention -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+            Notre zone d'intervention
+          </h2>
+          <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+            Nous intervenons à Versailles et dans toutes les communes environnantes des Yvelines
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-primary-50 to-white rounded-xl p-8 shadow-lg">
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+            {['Versailles', 'Le Chesnay-Rocquencourt', 'Viroflay', 'Vélizy-Villacoublay', 'Saint-Cyr-l\'École', 'Jouy-en-Josas', 'Buc', 'Bailly', 'Les Loges-en-Josas'].map(city => (
+              <div class="flex items-center gap-2 text-secondary-700">
+                <svg class="w-5 h-5 text-primary-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>{city}</span>
+              </div>
+            ))}
+          </div>
+          <div class="text-center">
+            <a href="/villes" class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105">
+              Voir toutes nos zones →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="container mx-auto px-4">
+      <CTASection
+        variant="primary"
+        title="Faites confiance à des professionnels"
+        description="Rejoignez les 5000+ clients qui nous ont fait confiance pour leur serrurerie à Versailles"
+        showForm={false}
+      />
+    </div>
+  </section>
+
+  <!-- Bouton CTA flottant -->
+  <FloatingCTA variant="both" />
+</BaseLayout>

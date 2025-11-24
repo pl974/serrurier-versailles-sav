@@ -1,0 +1,156 @@
+---
+/**
+ * Composant de comparaison de prix
+ * Compare nos tarifs avec la concurrence
+ */
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+
+interface Comparison {
+  service: string;
+  ourPrice: string;
+  avgPrice: string;
+  savings: string;
+}
+
+const comparisons: Comparison[] = [
+  {
+    service: 'Ouverture porte simple',
+    ourPrice: '89€',
+    avgPrice: '150€',
+    savings: '41%'
+  },
+  {
+    service: 'Changement serrure standard',
+    ourPrice: '150€',
+    avgPrice: '220€',
+    savings: '32%'
+  },
+  {
+    service: 'Dépannage nuit/weekend',
+    ourPrice: '89€',
+    avgPrice: '250€',
+    savings: '64%'
+  },
+  {
+    service: 'Serrure multipoints',
+    ourPrice: '300€',
+    avgPrice: '450€',
+    savings: '33%'
+  }
+];
+---
+
+<section class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+  <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4 text-center">
+    {title || 'Nos tarifs vs la concurrence'}
+  </h2>
+  <p class="text-lg text-secondary-600 text-center mb-10 max-w-2xl mx-auto">
+    Découvrez pourquoi nos clients nous choisissent. Tarifs transparents et justes, sans majoration abusive.
+  </p>
+
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead>
+        <tr class="border-b-2 border-gray-200">
+          <th class="text-left py-4 px-4 text-secondary-900 font-heading font-bold text-lg">
+            Prestation
+          </th>
+          <th class="text-center py-4 px-4">
+            <div class="bg-primary-600 text-white px-4 py-2 rounded-lg inline-block">
+              <div class="text-sm font-normal mb-1">Notre tarif</div>
+              <div class="text-xl font-bold">Serrurier Versailles</div>
+            </div>
+          </th>
+          <th class="text-center py-4 px-4 text-secondary-600 font-semibold">
+            Prix moyen marché
+          </th>
+          <th class="text-center py-4 px-4 text-green-600 font-semibold">
+            Votre économie
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {comparisons.map((comp, index) => (
+          <tr
+            class={`border-b border-gray-100 hover:bg-primary-50 transition-colors ${
+              index % 2 === 0 ? 'bg-gray-50' : 'bg-white'
+            }`}
+          >
+            <td class="py-4 px-4 font-semibold text-secondary-900">
+              {comp.service}
+            </td>
+            <td class="py-4 px-4 text-center">
+              <div class="text-2xl font-bold text-primary-600">{comp.ourPrice}</div>
+            </td>
+            <td class="py-4 px-4 text-center">
+              <div class="text-xl text-secondary-600 line-through">{comp.avgPrice}</div>
+            </td>
+            <td class="py-4 px-4 text-center">
+              <div class="inline-flex items-center gap-1 bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                -{comp.savings}
+              </div>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-10 bg-gradient-to-br from-primary-50 to-white rounded-xl p-6 border-2 border-primary-200">
+    <div class="flex items-start gap-4">
+      <div class="flex-shrink-0 w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div class="flex-1">
+        <h3 class="font-heading font-bold text-lg text-secondary-900 mb-2">
+          Pourquoi nos tarifs sont plus justes ?
+        </h3>
+        <ul class="space-y-2 text-secondary-700">
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Pas de majoration nocturne ou weekend abusive</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Transparence totale : le prix annoncé est le prix final</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Entreprise locale avec moins de frais de structure</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Relation directe sans intermédiaire</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8 text-center">
+    <a
+      href="/tarifs"
+      class="inline-block bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105 shadow-lg"
+    >
+      Voir tous nos tarifs détaillés
+    </a>
+  </div>
+</section>

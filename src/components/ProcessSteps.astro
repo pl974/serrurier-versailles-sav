@@ -1,0 +1,91 @@
+---
+/**
+ * Composant de processus en étapes visuelles
+ * Affiche un processus avec images et descriptions
+ */
+
+interface Step {
+  number: number;
+  title: string;
+  description: string;
+  image?: string;
+  icon?: string;
+}
+
+interface Props {
+  steps: Step[];
+  title?: string;
+  variant?: 'horizontal' | 'vertical';
+}
+
+const {
+  steps,
+  title,
+  variant = 'horizontal'
+} = Astro.props;
+---
+
+{title && (
+  <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-12 text-center">
+    {title}
+  </h2>
+)}
+
+<div class={variant === 'horizontal' ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8' : 'space-y-8'}>
+  {steps.map((step, index) => (
+    <div class={`relative ${variant === 'vertical' ? 'flex gap-6' : ''} fade-on-scroll`} style={`animation-delay: ${index * 150}ms`}>
+      {/* Ligne de connexion pour version verticale */}
+      {variant === 'vertical' && index < steps.length - 1 && (
+        <div class="absolute left-8 top-20 bottom-0 w-0.5 bg-gradient-to-b from-primary-600 to-primary-300"></div>
+      )}
+
+      {/* Image ou icône */}
+      <div class="flex-shrink-0">
+        {step.image ? (
+          <div class="relative">
+            <div class="aspect-square w-full max-w-xs mx-auto rounded-xl overflow-hidden shadow-lg mb-6">
+              <img
+                src={step.image}
+                alt={step.title}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div class="absolute -top-4 -left-4 w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center shadow-xl z-10">
+              <span class="text-3xl font-bold text-white">{step.number}</span>
+            </div>
+          </div>
+        ) : (
+          <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl relative z-10">
+            {step.icon ? (
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={step.icon}/>
+              </svg>
+            ) : (
+              <span class="text-3xl font-bold text-white">{step.number}</span>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Contenu */}
+      <div class={variant === 'horizontal' ? 'text-center' : 'flex-1 pt-2'}>
+        <h3 class="text-xl md:text-2xl font-heading font-bold text-secondary-900 mb-3">
+          {step.title}
+        </h3>
+        <p class="text-secondary-600 leading-relaxed">
+          {step.description}
+        </p>
+      </div>
+
+      {/* Flèche pour version horizontale */}
+      {variant === 'horizontal' && index < steps.length - 1 && (
+        <div class="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
+          <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+          </svg>
+        </div>
+      )}
+    </div>
+  ))}
+</div>

@@ -1,0 +1,58 @@
+---
+/**
+ * Composant de statistiques visuelles
+ * Affiche des chiffres clés avec animations
+ */
+
+interface Stat {
+  value: string;
+  label: string;
+  icon?: string;
+  suffix?: string;
+  description?: string;
+}
+
+interface Props {
+  stats: Stat[];
+  variant?: 'light' | 'dark' | 'colorful';
+}
+
+const {
+  stats,
+  variant = 'colorful'
+} = Astro.props;
+
+const variantClasses = {
+  light: 'bg-white text-secondary-900',
+  dark: 'bg-secondary-900 text-white',
+  colorful: 'bg-gradient-to-br from-primary-50 to-white text-secondary-900'
+};
+---
+
+<div class={`grid grid-cols-2 md:grid-cols-${Math.min(stats.length, 4)} gap-6 md:gap-8`}>
+  {stats.map((stat, index) => (
+    <div
+      class={`${variantClasses[variant]} rounded-xl p-6 md:p-8 text-center shadow-lg hover:shadow-xl transition-all hover:scale-105 fade-on-scroll`}
+      style={`animation-delay: ${index * 100}ms`}
+    >
+      {stat.icon && (
+        <div class="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-primary-600 rounded-full">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={stat.icon}/>
+          </svg>
+        </div>
+      )}
+      <div class="text-4xl md:text-5xl font-bold mb-2 text-primary-600">
+        {stat.value}{stat.suffix || ''}
+      </div>
+      <div class={`text-lg md:text-xl font-semibold mb-2 ${variant === 'dark' ? 'text-white' : 'text-secondary-900'}`}>
+        {stat.label}
+      </div>
+      {stat.description && (
+        <div class={`text-sm ${variant === 'dark' ? 'text-secondary-300' : 'text-secondary-600'}`}>
+          {stat.description}
+        </div>
+      )}
+    </div>
+  ))}
+</div>
