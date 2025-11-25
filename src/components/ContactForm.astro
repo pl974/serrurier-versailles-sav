@@ -1,0 +1,414 @@
+---
+/**
+ * Formulaire de contact amélioré avec validation
+ * Validation en temps réel et messages d'erreur
+ */
+
+interface Props {
+  variant?: 'light' | 'dark' | 'transparent';
+  submitButtonText?: string;
+  showTitle?: boolean;
+  title?: string;
+}
+
+const {
+  variant = 'light',
+  submitButtonText = 'Envoyer ma demande',
+  showTitle = true,
+  title = 'Demandez votre devis gratuit'
+} = Astro.props;
+
+const containerClass = {
+  light: 'bg-white rounded-xl shadow-lg p-8',
+  dark: 'bg-secondary-900 rounded-xl p-8',
+  transparent: 'bg-white/10 backdrop-blur-sm rounded-xl p-8'
+}[variant];
+
+const inputClass = {
+  light: 'bg-secondary-50 text-secondary-900',
+  dark: 'bg-white/10 text-white placeholder-white/60',
+  transparent: 'bg-white/90 text-secondary-900 placeholder-secondary-500'
+}[variant];
+
+const labelClass = {
+  light: 'text-secondary-900',
+  dark: 'text-white',
+  transparent: 'text-white'
+}[variant];
+---
+
+<div class={containerClass}>
+  {showTitle && (
+    <h3 class={`text-2xl font-heading font-bold mb-6 ${labelClass}`}>
+      {title}
+    </h3>
+  )}
+
+  <form id="contact-form" class="space-y-5" novalidate>
+    {/* Nom et Prénom */}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="form-group">
+        <label for="name" class={`block text-sm font-semibold mb-2 ${labelClass}`}>
+          Nom complet <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          minlength="2"
+          maxlength="50"
+          placeholder="Jean Dupont"
+          class={`w-full px-4 py-3 rounded-lg ${inputClass} focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all`}
+        />
+        <p class="error-message text-red-400 text-sm mt-1 hidden"></p>
+      </div>
+
+      <div class="form-group">
+        <label for="phone" class={`block text-sm font-semibold mb-2 ${labelClass}`}>
+          Téléphone <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          required
+          pattern="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$"
+          placeholder="06 12 34 56 78"
+          class={`w-full px-4 py-3 rounded-lg ${inputClass} focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all`}
+        />
+        <p class="error-message text-red-400 text-sm mt-1 hidden"></p>
+      </div>
+    </div>
+
+    {/* Email */}
+    <div class="form-group">
+      <label for="email" class={`block text-sm font-semibold mb-2 ${labelClass}`}>
+        Email <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        placeholder="jean.dupont@example.com"
+        class={`w-full px-4 py-3 rounded-lg ${inputClass} focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all`}
+      />
+      <p class="error-message text-red-400 text-sm mt-1 hidden"></p>
+    </div>
+
+    {/* Service */}
+    <div class="form-group">
+      <label for="service" class={`block text-sm font-semibold mb-2 ${labelClass}`}>
+        Service demandé <span class="text-red-500">*</span>
+      </label>
+      <select
+        id="service"
+        name="service"
+        required
+        class={`w-full px-4 py-3 rounded-lg ${inputClass} focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all`}
+      >
+        <option value="">-- Sélectionnez un service --</option>
+        <option value="ouverture-porte">Ouverture de porte</option>
+        <option value="changement-serrure">Changement de serrure</option>
+        <option value="depannage-urgence">Dépannage en urgence</option>
+        <option value="blindage-porte">Blindage de porte</option>
+        <option value="reproduction-cles">Reproduction de clés</option>
+        <option value="installation-multipoints">Installation serrure multipoints</option>
+        <option value="autre">Autre demande</option>
+      </select>
+      <p class="error-message text-red-400 text-sm mt-1 hidden"></p>
+    </div>
+
+    {/* Ville */}
+    <div class="form-group">
+      <label for="city" class={`block text-sm font-semibold mb-2 ${labelClass}`}>
+        Ville <span class="text-red-500">*</span>
+      </label>
+      <select
+        id="city"
+        name="city"
+        required
+        class={`w-full px-4 py-3 rounded-lg ${inputClass} focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all`}
+      >
+        <option value="">-- Sélectionnez votre ville --</option>
+        <option value="versailles">Versailles</option>
+        <option value="le-chesnay">Le Chesnay</option>
+        <option value="viroflay">Viroflay</option>
+        <option value="velizy-villacoublay">Vélizy-Villacoublay</option>
+        <option value="jouy-en-josas">Jouy-en-Josas</option>
+        <option value="buc">Buc</option>
+        <option value="saint-cyr">Saint-Cyr-l'École</option>
+        <option value="bailly">Bailly</option>
+        <option value="les-loges">Les Loges-en-Josas</option>
+        <option value="autre">Autre (préciser dans le message)</option>
+      </select>
+      <p class="error-message text-red-400 text-sm mt-1 hidden"></p>
+    </div>
+
+    {/* Message */}
+    <div class="form-group">
+      <label for="message" class={`block text-sm font-semibold mb-2 ${labelClass}`}>
+        Message (optionnel)
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        maxlength="500"
+        placeholder="Décrivez votre besoin en quelques mots..."
+        class={`w-full px-4 py-3 rounded-lg ${inputClass} focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all resize-none`}
+      ></textarea>
+      <p class="char-counter text-sm mt-1 ${labelClass} opacity-60 text-right">0 / 500</p>
+    </div>
+
+    {/* RGPD */}
+    <div class="form-group">
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input
+          type="checkbox"
+          id="consent"
+          name="consent"
+          required
+          class="mt-1 w-5 h-5 rounded border-2 border-secondary-300 text-primary-600 focus:ring-2 focus:ring-primary-500"
+        />
+        <span class={`text-sm ${labelClass} opacity-90`}>
+          J'accepte que mes données soient utilisées pour me recontacter concernant ma demande. <a href="/confidentialite" class="underline hover:text-primary-400">Politique de confidentialité</a> <span class="text-red-500">*</span>
+        </span>
+      </label>
+      <p class="error-message text-red-400 text-sm mt-1 hidden"></p>
+    </div>
+
+    {/* Messages de succès/erreur */}
+    <div id="form-success" class="hidden bg-green-100 border-2 border-green-500 text-green-800 px-4 py-3 rounded-lg">
+      <div class="flex items-center gap-3">
+        <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        <div>
+          <p class="font-bold">Message envoyé avec succès !</p>
+          <p class="text-sm">Nous vous recontacterons dans les plus brefs délais.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="form-error" class="hidden bg-red-100 border-2 border-red-500 text-red-800 px-4 py-3 rounded-lg">
+      <div class="flex items-center gap-3">
+        <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+        </svg>
+        <div>
+          <p class="font-bold">Erreur lors de l'envoi</p>
+          <p class="text-sm">Veuillez réessayer ou nous appeler directement.</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Bouton submit */}
+    <button
+      type="submit"
+      id="submit-button"
+      class="w-full bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105 shadow-lg flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+    >
+      <span id="submit-text">{submitButtonText}</span>
+      <svg id="submit-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+      </svg>
+      <svg id="loading-icon" class="hidden w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+    </button>
+
+    <p class={`text-sm ${labelClass} opacity-75 text-center`}>
+      Ou appelez-nous directement au <a href="tel:01XXXXXXXX" class="font-bold underline hover:opacity-100">01 XX XX XX XX</a>
+    </p>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    if (!form) return;
+
+    const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+    const submitText = document.getElementById('submit-text');
+    const submitIcon = document.getElementById('submit-icon');
+    const loadingIcon = document.getElementById('loading-icon');
+    const successMessage = document.getElementById('form-success');
+    const errorMessage = document.getElementById('form-error');
+
+    // Validation patterns
+    const patterns = {
+      name: /^[a-zA-ZÀ-ÿ\s'-]{2,50}$/,
+      email: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i,
+      phone: /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/
+    };
+
+    // Error messages
+    const errorMessages = {
+      name: 'Le nom doit contenir entre 2 et 50 caractères',
+      email: 'Veuillez entrer une adresse email valide',
+      phone: 'Veuillez entrer un numéro de téléphone français valide',
+      service: 'Veuillez sélectionner un service',
+      city: 'Veuillez sélectionner votre ville',
+      consent: 'Vous devez accepter la politique de confidentialité'
+    };
+
+    // Validate field
+    function validateField(field: HTMLInputElement | HTMLSelectElement): boolean {
+      const formGroup = field.closest('.form-group');
+      const errorElement = formGroup?.querySelector('.error-message') as HTMLElement;
+
+      // Remove previous error state
+      field.classList.remove('border-2', 'border-red-500');
+      if (errorElement) {
+        errorElement.classList.add('hidden');
+        errorElement.textContent = '';
+      }
+
+      // Check if field is required and empty
+      if (field.hasAttribute('required') && !field.value.trim()) {
+        showError(field, errorElement, 'Ce champ est obligatoire');
+        return false;
+      }
+
+      // Skip further validation if field is empty and not required
+      if (!field.value.trim()) {
+        return true;
+      }
+
+      // Validate based on field type
+      const fieldName = field.name as keyof typeof patterns;
+      if (patterns[fieldName]) {
+        if (!patterns[fieldName].test(field.value)) {
+          showError(field, errorElement, errorMessages[fieldName]);
+          return false;
+        }
+      }
+
+      // Validate select fields
+      if (field.tagName === 'SELECT' && !field.value) {
+        showError(field, errorElement, errorMessages[fieldName as keyof typeof errorMessages]);
+        return false;
+      }
+
+      // Validate checkbox
+      if (field.type === 'checkbox') {
+        const checkbox = field as HTMLInputElement;
+        if (field.hasAttribute('required') && !checkbox.checked) {
+          showError(field, errorElement, errorMessages.consent);
+          return false;
+        }
+      }
+
+      // Field is valid - show success state
+      field.classList.add('border-2', 'border-green-500');
+      return true;
+    }
+
+    function showError(field: HTMLElement, errorElement: HTMLElement | null, message: string) {
+      field.classList.add('border-2', 'border-red-500');
+      if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.classList.remove('hidden');
+      }
+    }
+
+    // Real-time validation on blur
+    const inputs = form.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => {
+        if ((input as HTMLInputElement).value || input.hasAttribute('required')) {
+          validateField(input as HTMLInputElement);
+        }
+      });
+
+      // Remove error state on focus
+      input.addEventListener('focus', () => {
+        input.classList.remove('border-2', 'border-red-500', 'border-green-500');
+        const formGroup = input.closest('.form-group');
+        const errorElement = formGroup?.querySelector('.error-message');
+        if (errorElement) {
+          errorElement.classList.add('hidden');
+        }
+      });
+    });
+
+    // Character counter for message field
+    const messageField = document.getElementById('message') as HTMLTextAreaElement;
+    const charCounter = document.querySelector('.char-counter');
+    if (messageField && charCounter) {
+      messageField.addEventListener('input', () => {
+        const length = messageField.value.length;
+        charCounter.textContent = `${length} / 500`;
+        if (length > 450) {
+          charCounter.classList.add('text-red-500');
+        } else {
+          charCounter.classList.remove('text-red-500');
+        }
+      });
+    }
+
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Hide previous messages
+      successMessage?.classList.add('hidden');
+      errorMessage?.classList.add('hidden');
+
+      // Validate all fields
+      let isValid = true;
+      inputs.forEach(input => {
+        if (!validateField(input as HTMLInputElement)) {
+          isValid = false;
+        }
+      });
+
+      if (!isValid) {
+        // Scroll to first error
+        const firstError = form.querySelector('.border-red-500');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      // Show loading state
+      submitButton.disabled = true;
+      submitText!.textContent = 'Envoi en cours...';
+      submitIcon?.classList.add('hidden');
+      loadingIcon?.classList.remove('hidden');
+
+      // Simulate form submission (replace with actual API call)
+      try {
+        // In production, replace this with actual form submission
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // Show success message
+        successMessage?.classList.remove('hidden');
+        form.reset();
+
+        // Reset validation states
+        inputs.forEach(input => {
+          input.classList.remove('border-2', 'border-red-500', 'border-green-500');
+        });
+
+        // Scroll to success message
+        successMessage?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (error) {
+        // Show error message
+        errorMessage?.classList.remove('hidden');
+        errorMessage?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } finally {
+        // Reset button state
+        submitButton.disabled = false;
+        submitText!.textContent = 'Envoyer ma demande';
+        submitIcon?.classList.remove('hidden');
+        loadingIcon?.classList.add('hidden');
+      }
+    });
+  });
+</script>

@@ -1,0 +1,284 @@
+---
+/**
+ * Page de listing des articles de blog
+ * Affiche tous les articles avec filtres par catégorie
+ */
+
+import Layout from '../../layouts/Layout.astro';
+import SEO from '../../components/SEO.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import FloatingCTA from '../../components/FloatingCTA.astro';
+import { blogPosts, getFeaturedPosts, getRecentPosts } from '../../data/blogPosts';
+import type { BlogPost } from '../../data/blogPosts';
+
+const featuredPosts = getFeaturedPosts();
+const allPosts = blogPosts.sort((a, b) =>
+  new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+);
+
+// Grouper par catégorie pour les stats
+const postsByCategory = {
+  guide: blogPosts.filter(p => p.category === 'guide').length,
+  conseils: blogPosts.filter(p => p.category === 'conseils').length,
+  actualites: blogPosts.filter(p => p.category === 'actualites').length,
+  securite: blogPosts.filter(p => p.category === 'securite').length
+};
+
+const categories = [
+  { id: 'tous', label: 'Tous les articles', count: allPosts.length },
+  { id: 'guide', label: 'Guides pratiques', count: postsByCategory.guide },
+  { id: 'conseils', label: 'Conseils', count: postsByCategory.conseils },
+  { id: 'actualites', label: 'Actualités', count: postsByCategory.actualites },
+  { id: 'securite', label: 'Sécurité', count: postsByCategory.securite }
+];
+---
+
+<Layout>
+  <SEO
+    slot="head"
+    title="Blog serrurier Versailles | Conseils et guides sécurité"
+    description="Découvrez nos articles sur la serrurerie, la sécurité et les bonnes pratiques. Guides, conseils d'experts et actualités pour protéger votre domicile à Versailles."
+    canonical="https://serrurier-versailles-sav.fr/blog"
+  />
+
+  {/* Hero Section */}
+  <section class="bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-900 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+          Blog et conseils serrurerie
+        </h1>
+        <p class="text-xl md:text-2xl text-primary-100 mb-8">
+          Guides pratiques, conseils de sécurité et actualités pour protéger efficacement votre domicile
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-8 text-primary-100">
+          <div class="flex items-center gap-2">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+            </svg>
+            <span>{allPosts.length} articles</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+            </svg>
+            <span>Mis à jour régulièrement</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Rédigé par des experts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Articles à la une */}
+  {featuredPosts.length > 0 && (
+    <section class="py-16 bg-gradient-to-b from-white to-secondary-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+            Articles à la une
+          </h2>
+          <p class="text-lg text-secondary-600 max-w-2xl mx-auto">
+            Nos guides et conseils les plus populaires pour sécuriser votre domicile
+          </p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+          {featuredPosts.map(post => (
+            <BlogCard post={post} featured={true} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Filtres par catégorie */}
+  <section class="py-12 bg-white border-y border-gray-200 sticky top-0 z-10 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        {categories.map(cat => (
+          <button
+            data-category={cat.id}
+            class="category-filter px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+            data-active={cat.id === 'tous' ? 'true' : 'false'}
+          >
+            {cat.label}
+            <span class="ml-2 text-sm opacity-75">({cat.count})</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Liste de tous les articles */}
+  <section class="py-16 bg-secondary-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="articles-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {allPosts.map(post => (
+          <div data-category={post.category} class="article-item">
+            <BlogCard post={post} />
+          </div>
+        ))}
+      </div>
+
+      {/* Message si aucun résultat */}
+      <div id="no-results" class="hidden text-center py-12">
+        <svg class="w-16 h-16 mx-auto text-secondary-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <p class="text-lg text-secondary-600">Aucun article dans cette catégorie pour le moment</p>
+      </div>
+    </div>
+  </section>
+
+  {/* CTA Newsletter */}
+  <section class="py-16 bg-gradient-to-br from-primary-600 to-secondary-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-white/20">
+        <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-heading font-bold mb-4">
+          Restez informé de nos nouveaux articles
+        </h2>
+        <p class="text-xl text-primary-100 mb-8">
+          Recevez nos derniers conseils et guides directement par email
+        </p>
+        <form class="max-w-md mx-auto flex gap-3">
+          <input
+            type="email"
+            placeholder="Votre email"
+            class="flex-1 px-4 py-3 rounded-lg text-secondary-900 focus:outline-none focus:ring-2 focus:ring-white"
+            required
+          />
+          <button
+            type="submit"
+            class="bg-white text-primary-600 px-6 py-3 rounded-lg font-bold hover:bg-primary-50 transition-colors"
+          >
+            S'inscrire
+          </button>
+        </form>
+        <p class="text-sm text-primary-100 mt-4">
+          Pas de spam, uniquement du contenu de qualité. Désinscription possible à tout moment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* CTA Contact */}
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+        Besoin d'un serrurier maintenant ?
+      </h2>
+      <p class="text-xl text-secondary-600 mb-8">
+        Notre équipe est disponible 24h/24 pour tous vos besoins en serrurerie
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="tel:01XXXXXXXX"
+          class="inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105 shadow-lg"
+        >
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+          </svg>
+          Appeler maintenant
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex items-center gap-2 bg-white hover:bg-secondary-50 text-secondary-900 px-8 py-4 rounded-lg font-bold text-lg transition-all border-2 border-secondary-900"
+        >
+          Demander un devis gratuit
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <FloatingCTA />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.category-filter');
+    const articles = document.querySelectorAll('.article-item');
+    const noResults = document.getElementById('no-results');
+
+    // Styling des boutons
+    function updateButtonStyles() {
+      filterButtons.forEach(btn => {
+        const isActive = btn.getAttribute('data-active') === 'true';
+        if (isActive) {
+          btn.classList.add('bg-primary-600', 'text-white', 'shadow-lg');
+          btn.classList.remove('bg-secondary-100', 'text-secondary-700');
+        } else {
+          btn.classList.add('bg-secondary-100', 'text-secondary-700');
+          btn.classList.remove('bg-primary-600', 'text-white', 'shadow-lg');
+        }
+      });
+    }
+
+    // Filtrage
+    function filterArticles(category: string) {
+      let visibleCount = 0;
+
+      articles.forEach(article => {
+        const articleCategory = article.getAttribute('data-category');
+        if (category === 'tous' || articleCategory === category) {
+          article.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          article.classList.add('hidden');
+        }
+      });
+
+      // Afficher message si aucun résultat
+      if (noResults) {
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+        }
+      }
+    }
+
+    // Event listeners
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const category = button.getAttribute('data-category') || 'tous';
+
+        // Mettre à jour l'état actif
+        filterButtons.forEach(btn => btn.setAttribute('data-active', 'false'));
+        button.setAttribute('data-active', 'true');
+
+        // Filtrer et mettre à jour les styles
+        filterArticles(category);
+        updateButtonStyles();
+      });
+    });
+
+    // Init
+    updateButtonStyles();
+  });
+</script>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

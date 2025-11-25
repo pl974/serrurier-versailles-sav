@@ -1,0 +1,294 @@
+---
+/**
+ * Composant de calculateur de devis interactif
+ * Permet aux utilisateurs d'obtenir une estimation de prix instantanée
+ */
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class="bg-gradient-to-br from-primary-50 to-white rounded-2xl shadow-2xl p-8 md:p-12">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+        {title || 'Calculateur de devis gratuit'}
+      </h2>
+      <p class="text-lg text-secondary-600 max-w-2xl mx-auto">
+        Obtenez une estimation de prix instantanée pour votre intervention de serrurerie
+      </p>
+    </div>
+
+    <form id="quote-calculator" class="space-y-8">
+      <!-- Étape 1: Type d'intervention -->
+      <div class="calculator-step" data-step="1">
+        <div class="mb-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">
+              1
+            </div>
+            <h3 class="text-2xl font-heading font-bold text-secondary-900">
+              Type d'intervention
+            </h3>
+          </div>
+          <p class="text-secondary-600 ml-13">Quelle est votre besoin ?</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <label class="calculator-option">
+            <input type="radio" name="service" value="ouverture-porte" data-price="89" required class="sr-only" />
+            <div class="option-card">
+              <svg class="w-12 h-12 text-primary-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"/>
+              </svg>
+              <h4 class="text-lg font-bold text-secondary-900 mb-2">Ouverture de porte</h4>
+              <p class="text-sm text-secondary-600">Porte claquée ou fermée à clé</p>
+              <div class="price-tag">À partir de 89€</div>
+            </div>
+          </label>
+
+          <label class="calculator-option">
+            <input type="radio" name="service" value="changement-serrure" data-price="150" class="sr-only" />
+            <div class="option-card">
+              <svg class="w-12 h-12 text-primary-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+              </svg>
+              <h4 class="text-lg font-bold text-secondary-900 mb-2">Changement de serrure</h4>
+              <p class="text-sm text-secondary-600">Remplacement serrure standard</p>
+              <div class="price-tag">À partir de 150€</div>
+            </div>
+          </label>
+
+          <label class="calculator-option">
+            <input type="radio" name="service" value="serrure-multipoints" data-price="300" class="sr-only" />
+            <div class="option-card">
+              <svg class="w-12 h-12 text-primary-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+              <h4 class="text-lg font-bold text-secondary-900 mb-2">Serrure multipoints</h4>
+              <p class="text-sm text-secondary-600">Installation 3, 5 ou 7 points</p>
+              <div class="price-tag">À partir de 300€</div>
+            </div>
+          </label>
+
+          <label class="calculator-option">
+            <input type="radio" name="service" value="blindage-porte" data-price="800" class="sr-only" />
+            <div class="option-card">
+              <svg class="w-12 h-12 text-primary-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+              <h4 class="text-lg font-bold text-secondary-900 mb-2">Blindage de porte</h4>
+              <p class="text-sm text-secondary-600">Renforcement sécurité</p>
+              <div class="price-tag">À partir de 800€</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Étape 2: Urgence -->
+      <div class="calculator-step" data-step="2">
+        <div class="mb-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">
+              2
+            </div>
+            <h3 class="text-2xl font-heading font-bold text-secondary-900">
+              Délai d'intervention
+            </h3>
+          </div>
+          <p class="text-secondary-600 ml-13">Quand avez-vous besoin de nous ?</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <label class="calculator-option">
+            <input type="radio" name="urgency" value="immediate" data-multiplier="1" required class="sr-only" />
+            <div class="option-card">
+              <svg class="w-10 h-10 text-red-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <h4 class="text-lg font-bold text-secondary-900 mb-2">Urgence immédiate</h4>
+              <p class="text-sm text-secondary-600">Intervention en 30 min</p>
+              <div class="price-tag">Tarif standard</div>
+            </div>
+          </label>
+
+          <label class="calculator-option">
+            <input type="radio" name="urgency" value="today" data-multiplier="0.9" class="sr-only" />
+            <div class="option-card">
+              <svg class="w-10 h-10 text-orange-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <h4 class="text-lg font-bold text-secondary-900 mb-2">Aujourd'hui</h4>
+              <p class="text-sm text-secondary-600">Intervention dans la journée</p>
+              <div class="price-tag">-10%</div>
+            </div>
+          </label>
+
+          <label class="calculator-option">
+            <input type="radio" name="urgency" value="scheduled" data-multiplier="0.85" class="sr-only" />
+            <div class="option-card">
+              <svg class="w-10 h-10 text-green-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+              <h4 class="text-lg font-bold text-secondary-900 mb-2">Sur rendez-vous</h4>
+              <p class="text-sm text-secondary-600">Intervention planifiée</p>
+              <div class="price-tag">-15%</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Étape 3: Ville -->
+      <div class="calculator-step" data-step="3">
+        <div class="mb-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">
+              3
+            </div>
+            <h3 class="text-2xl font-heading font-bold text-secondary-900">
+              Localisation
+            </h3>
+          </div>
+          <p class="text-secondary-600 ml-13">Où se situe votre intervention ?</p>
+        </div>
+
+        <select name="city" required class="w-full px-6 py-4 border-2 border-gray-300 rounded-xl focus:border-primary-600 focus:outline-none text-lg">
+          <option value="">Sélectionnez votre ville</option>
+          <option value="versailles" data-fee="0">Versailles</option>
+          <option value="le-chesnay" data-fee="0">Le Chesnay-Rocquencourt</option>
+          <option value="viroflay" data-fee="0">Viroflay</option>
+          <option value="velizy" data-fee="5">Vélizy-Villacoublay</option>
+          <option value="saint-cyr" data-fee="5">Saint-Cyr-l'École</option>
+          <option value="jouy" data-fee="10">Jouy-en-Josas</option>
+          <option value="buc" data-fee="5">Buc</option>
+          <option value="bailly" data-fee="10">Bailly</option>
+          <option value="other" data-fee="15">Autre commune</option>
+        </select>
+      </div>
+
+      <!-- Résultat -->
+      <div id="calculator-result" class="hidden bg-gradient-to-br from-primary-600 to-primary-700 text-white rounded-xl p-8 mt-8">
+        <div class="text-center">
+          <div class="text-lg mb-2">Estimation de votre intervention</div>
+          <div class="text-5xl md:text-6xl font-bold mb-4">
+            <span id="estimated-price">0</span>€
+          </div>
+          <div class="text-primary-100 mb-6">
+            Cette estimation est indicative. Un devis précis vous sera communiqué par téléphone.
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="tel:+33-1-XX-XX-XX-XX" class="bg-white text-primary-600 hover:bg-primary-50 px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105 shadow-xl">
+              Appeler maintenant
+            </a>
+            <a href="/contact" class="border-2 border-white hover:bg-white hover:text-primary-600 px-8 py-4 rounded-lg font-bold text-lg transition-all">
+              Demander un devis précis
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-8 border-t border-white/20">
+          <h4 class="font-bold text-lg mb-4 text-center">Votre estimation inclut :</h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Déplacement inclus</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Main d'œuvre</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Petites fournitures</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" id="calculate-btn" class="w-full bg-primary-600 hover:bg-primary-700 text-white px-8 py-5 rounded-xl font-bold text-xl transition-all hover:scale-105 shadow-xl disabled:opacity-50 disabled:cursor-not-allowed">
+        Calculer mon devis
+      </button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .calculator-option input:checked + .option-card {
+    @apply border-primary-600 bg-primary-50 ring-2 ring-primary-600;
+  }
+
+  .option-card {
+    @apply border-2 border-gray-200 rounded-xl p-6 cursor-pointer transition-all hover:border-primary-400 hover:shadow-lg bg-white;
+  }
+
+  .price-tag {
+    @apply mt-3 inline-block bg-primary-600 text-white px-4 py-1 rounded-full text-sm font-semibold;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('quote-calculator') as HTMLFormElement;
+    const calculateBtn = document.getElementById('calculate-btn');
+    const resultDiv = document.getElementById('calculator-result');
+    const priceSpan = document.getElementById('estimated-price');
+
+    function calculatePrice() {
+      const serviceInput = form.querySelector('input[name="service"]:checked') as HTMLInputElement;
+      const urgencyInput = form.querySelector('input[name="urgency"]:checked') as HTMLInputElement;
+      const citySelect = form.querySelector('select[name="city"]') as HTMLSelectElement;
+
+      if (!serviceInput || !urgencyInput || !citySelect.value) {
+        alert('Veuillez remplir tous les champs');
+        return;
+      }
+
+      const basePrice = parseFloat(serviceInput.dataset.price || '0');
+      const multiplier = parseFloat(urgencyInput.dataset.multiplier || '1');
+      const cityFee = parseFloat(citySelect.selectedOptions[0].dataset.fee || '0');
+
+      const totalPrice = Math.round(basePrice * multiplier + cityFee);
+
+      if (priceSpan) {
+        priceSpan.textContent = totalPrice.toString();
+      }
+
+      resultDiv?.classList.remove('hidden');
+      resultDiv?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    calculateBtn?.addEventListener('click', calculatePrice);
+
+    // Enable/disable calculate button based on form validity
+    form.addEventListener('change', () => {
+      const serviceInput = form.querySelector('input[name="service"]:checked');
+      const urgencyInput = form.querySelector('input[name="urgency"]:checked');
+      const citySelect = form.querySelector('select[name="city"]') as HTMLSelectElement;
+
+      const isValid = serviceInput && urgencyInput && citySelect.value;
+      calculateBtn?.toggleAttribute('disabled', !isValid);
+    });
+  });
+</script>

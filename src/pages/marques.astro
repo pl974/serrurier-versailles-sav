@@ -1,0 +1,326 @@
+---
+/**
+ * Page des marques partenaires
+ * Présente les marques de serrurerie avec lesquelles nous travaillons
+ */
+
+import Layout from '../layouts/Layout.astro';
+import SEO from '../components/SEO.astro';
+import FloatingCTA from '../components/FloatingCTA.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import { brands, getFeaturedBrands } from '../data/brands';
+
+const featuredBrands = getFeaturedBrands();
+---
+
+<Layout>
+  <SEO
+    slot="head"
+    title="Nos marques partenaires | Serrurier Versailles"
+    description="Découvrez les grandes marques de serrurerie avec lesquelles nous travaillons : Fichet, Picard, Vachette, Bricard, Abus et bien d'autres. Qualité et fiabilité garanties."
+    canonical="https://serrurier-versailles-sav.fr/marques"
+  />
+
+  {/* Hero Section */}
+  <section class="bg-gradient-to-br from-primary-600 via-primary-700 to-secondary-900 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+          Nos marques partenaires
+        </h1>
+        <p class="text-xl md:text-2xl text-primary-100 mb-8">
+          Nous travaillons exclusivement avec les leaders mondiaux de la serrurerie pour vous garantir sécurité, qualité et durabilité
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-8 text-primary-100">
+          <div class="flex items-center gap-2">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Marques certifiées</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Garanties fabricants</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+            </svg>
+            <span>Conseillers experts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Marques en vedette */}
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Nos marques premium
+        </h2>
+        <p class="text-lg text-secondary-600 max-w-2xl mx-auto">
+          Des partenaires de confiance reconnus pour leur excellence et leur innovation dans le domaine de la sécurité
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+        {featuredBrands.map(brand => (
+          <div class="bg-gradient-to-br from-white to-secondary-50 rounded-2xl shadow-xl overflow-hidden border-2 border-primary-200 hover:border-primary-400 transition-all hover:-translate-y-2">
+            {/* Header avec logo */}
+            <div class="bg-gradient-to-r from-primary-600 to-primary-700 p-6 flex items-center justify-between">
+              <div>
+                <h3 class="text-2xl font-heading font-bold text-white mb-2">
+                  {brand.name}
+                </h3>
+                <p class="text-primary-100 text-sm">{brand.specialty}</p>
+              </div>
+              <div class="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
+                <svg class="w-10 h-10 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+            </div>
+
+            {/* Contenu */}
+            <div class="p-6">
+              <p class="text-secondary-700 mb-6 leading-relaxed">
+                {brand.description}
+              </p>
+
+              {/* Certifications */}
+              <div class="mb-6">
+                <h4 class="font-semibold text-secondary-900 mb-3 flex items-center gap-2">
+                  <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  Certifications
+                </h4>
+                <div class="flex flex-wrap gap-2">
+                  {brand.certifications.map(cert => (
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                      {cert}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Produits */}
+              <div class="mb-6">
+                <h4 class="font-semibold text-secondary-900 mb-3 flex items-center gap-2">
+                  <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"/>
+                  </svg>
+                  Gamme de produits
+                </h4>
+                <ul class="space-y-2">
+                  {brand.products.map(product => (
+                    <li class="flex items-start gap-2 text-secondary-700">
+                      <svg class="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      {product}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Garantie */}
+              <div class="bg-primary-50 rounded-lg p-4 flex items-center gap-3">
+                <svg class="w-8 h-8 text-primary-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                  <div class="font-semibold text-secondary-900">Garantie</div>
+                  <div class="text-sm text-secondary-600">{brand.warranty}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Toutes les marques */}
+  <section class="py-16 bg-secondary-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Autres marques disponibles
+        </h2>
+        <p class="text-lg text-secondary-600 max-w-2xl mx-auto">
+          Un large choix de marques pour répondre à tous vos besoins et budgets
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {brands.filter(b => !b.featured).map(brand => (
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all hover:-translate-y-1">
+            {/* Header */}
+            <div class="bg-secondary-900 p-4 text-center">
+              <h3 class="text-xl font-heading font-bold text-white">
+                {brand.name}
+              </h3>
+            </div>
+
+            {/* Contenu */}
+            <div class="p-5">
+              <p class="text-sm text-secondary-600 mb-4 line-clamp-3">
+                {brand.description}
+              </p>
+
+              <div class="mb-4">
+                <div class="text-xs font-semibold text-secondary-900 mb-2">Spécialité</div>
+                <p class="text-sm text-secondary-700">{brand.specialty}</p>
+              </div>
+
+              <div class="mb-4">
+                <div class="text-xs font-semibold text-secondary-900 mb-2">Certifications</div>
+                <div class="flex flex-wrap gap-1">
+                  {brand.certifications.map(cert => (
+                    <span class="bg-secondary-100 text-secondary-700 px-2 py-0.5 rounded text-xs">
+                      {cert}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-gray-200">
+                <div class="text-xs text-secondary-600 flex items-center gap-2">
+                  <svg class="w-4 h-4 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  {brand.warranty}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Pourquoi ces marques */}
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-heading font-bold text-secondary-900 mb-4">
+          Pourquoi ces marques ?
+        </h2>
+        <p class="text-lg text-secondary-600 max-w-2xl mx-auto">
+          Notre sélection repose sur des critères stricts de qualité et de performance
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-heading font-bold text-secondary-900 mb-2">
+            Certifications A2P
+          </h3>
+          <p class="text-secondary-600">
+            Toutes nos marques proposent des produits certifiés A2P garantissant une résistance éprouvée
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+              <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-heading font-bold text-secondary-900 mb-2">
+            Garanties fabricants
+          </h3>
+          <p class="text-secondary-600">
+            Bénéficiez des garanties constructeurs allant de 2 à 10 ans selon les marques et produits
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-heading font-bold text-secondary-900 mb-2">
+            Innovation constante
+          </h3>
+          <p class="text-secondary-600">
+            Des marques à la pointe de la technologie avec serrures connectées et systèmes électroniques
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-heading font-bold text-secondary-900 mb-2">
+            Service après-vente
+          </h3>
+          <p class="text-secondary-600">
+            Un SAV de qualité et des pièces détachées disponibles pour une durabilité maximale
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Trust badges */}
+  <section class="py-12 bg-secondary-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <TrustBadges layout="horizontal" />
+    </div>
+  </section>
+
+  {/* CTA */}
+  <section class="py-16 bg-gradient-to-br from-primary-600 to-secondary-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-heading font-bold mb-4">
+        Besoin de conseils pour choisir ?
+      </h2>
+      <p class="text-xl text-primary-100 mb-8">
+        Nos experts vous orientent vers la marque et le produit adaptés à vos besoins et votre budget
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="tel:01XXXXXXXX"
+          class="inline-flex items-center gap-2 bg-white hover:bg-primary-50 text-primary-600 px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105 shadow-lg"
+        >
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+          </svg>
+          Appeler un expert
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex items-center gap-2 bg-transparent hover:bg-white/10 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all border-2 border-white"
+        >
+          Demander un devis gratuit
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <FloatingCTA />
+</Layout>
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

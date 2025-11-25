@@ -1,0 +1,155 @@
+---
+/**
+ * Composant de lecteur vidéo réutilisable
+ * Support YouTube, Vimeo ou vidéos locales
+ */
+
+interface Props {
+  videoUrl: string;
+  type?: 'youtube' | 'vimeo' | 'local';
+  thumbnail?: string;
+  title?: string;
+  description?: string;
+  aspectRatio?: '16/9' | '4/3' | '1/1';
+  autoplay?: boolean;
+}
+
+const {
+  videoUrl,
+  type = 'youtube',
+  thumbnail,
+  title,
+  description,
+  aspectRatio = '16/9',
+  autoplay = false
+} = Astro.props;
+
+// Extract video ID for YouTube
+function getYouTubeId(url: string): string {
+  const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+  return match ? match[1] : '';
+}
+
+// Extract video ID for Vimeo
+function getVimeoId(url: string): string {
+  const match = url.match(/vimeo\.com\/(\d+)/);
+  return match ? match[1] : '';
+}
+
+const videoId = type === 'youtube' ? getYouTubeId(videoUrl) : type === 'vimeo' ? getVimeoId(videoUrl) : '';
+const defaultThumbnail = type === 'youtube' ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : thumbnail;
+
+const aspectRatioClass = {
+  '16/9': 'aspect-video',
+  '4/3': 'aspect-[4/3]',
+  '1/1': 'aspect-square'
+}[aspectRatio];
+---
+
+<div class="video-player-container bg-white rounded-xl shadow-lg overflow-hidden">
+  {(title || description) && (
+    <div class="p-6 border-b border-gray-100">
+      {title && (
+        <h3 class="text-2xl font-heading font-bold text-secondary-900 mb-2">
+          {title}
+        </h3>
+      )}
+      {description && (
+        <p class="text-secondary-600">{description}</p>
+      )}
+    </div>
+  )}
+
+  <div class={`relative ${aspectRatioClass} bg-gray-900`}>
+    {/* Thumbnail avec bouton play */}
+    <div class="video-thumbnail absolute inset-0 cursor-pointer group" data-video-id={videoId} data-video-type={type} data-video-url={videoUrl}>
+      {defaultThumbnail && (
+        <img
+          src={defaultThumbnail}
+          alt={title || 'Vidéo'}
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+      )}
+      <div class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+        <div class="w-20 h-20 bg-primary-600 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-transform">
+          <svg class="w-10 h-10 text-white ml-1" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    {/* Container pour iframe */}
+    <div class="video-iframe-container hidden"></div>
+  </div>
+
+  <div class="p-4 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="flex items-center justify-between text-sm text-secondary-600">
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span>Vidéo professionnelle</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <span>HD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const thumbnails = document.querySelectorAll('.video-thumbnail');
+
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', function() {
+        const videoId = this.getAttribute('data-video-id');
+        const videoType = this.getAttribute('data-video-type');
+        const videoUrl = this.getAttribute('data-video-url');
+        const container = this.nextElementSibling as HTMLElement;
+
+        if (!container) return;
+
+        let iframeSrc = '';
+
+        if (videoType === 'youtube' && videoId) {
+          iframeSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        } else if (videoType === 'vimeo' && videoId) {
+          iframeSrc = `https://player.vimeo.com/video/${videoId}?autoplay=1`;
+        } else if (videoType === 'local' && videoUrl) {
+          container.innerHTML = `
+            <video class="w-full h-full" controls autoplay>
+              <source src="${videoUrl}" type="video/mp4">
+              Votre navigateur ne supporte pas la vidéo HTML5.
+            </video>
+          `;
+          this.remove();
+          container.classList.remove('hidden');
+          return;
+        }
+
+        if (iframeSrc) {
+          container.innerHTML = `
+            <iframe
+              class="w-full h-full"
+              src="${iframeSrc}"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          `;
+          this.remove();
+          container.classList.remove('hidden');
+        }
+      });
+    });
+  });
+</script>

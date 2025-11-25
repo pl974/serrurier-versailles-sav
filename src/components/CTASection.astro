@@ -4,6 +4,8 @@
  * Optimisé pour la conversion avec différentes variantes
  */
 
+import ContactForm from './ContactForm.astro';
+
 interface Props {
   variant?: 'primary' | 'secondary' | 'emergency';
   title?: string;
@@ -72,58 +74,8 @@ const config = variants[variant];
           </a>
         </div>
       ) : (
-        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 md:p-8 max-w-2xl mx-auto">
-          <form class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="name"
-                placeholder="Votre nom"
-                required
-                class="px-4 py-3 rounded-lg bg-white/90 text-secondary-900 placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-white"
-              />
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Téléphone"
-                required
-                class="px-4 py-3 rounded-lg bg-white/90 text-secondary-900 placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-white"
-              />
-            </div>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              class="w-full px-4 py-3 rounded-lg bg-white/90 text-secondary-900 placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-white"
-            />
-            <select
-              name="service"
-              required
-              class="w-full px-4 py-3 rounded-lg bg-white/90 text-secondary-900 focus:outline-none focus:ring-2 focus:ring-white"
-            >
-              <option value="">Sélectionnez un service</option>
-              <option value="ouverture-porte">Ouverture de porte</option>
-              <option value="changement-serrure">Changement de serrure</option>
-              <option value="depannage-urgence">Dépannage en urgence</option>
-              <option value="blindage-porte">Blindage de porte</option>
-              <option value="autre">Autre</option>
-            </select>
-            <textarea
-              name="message"
-              placeholder="Décrivez votre besoin (optionnel)"
-              rows="3"
-              class="w-full px-4 py-3 rounded-lg bg-white/90 text-secondary-900 placeholder-secondary-500 focus:outline-none focus:ring-2 focus:ring-white"
-            ></textarea>
-            <button
-              type="submit"
-              class="w-full bg-secondary-900 hover:bg-secondary-800 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105 shadow-xl"
-            >
-              Envoyer ma demande
-            </button>
-          </form>
-          <p class="text-sm text-white/80 mt-4 text-center">
-            Ou appelez directement : <a href={`tel:${phoneNumber}`} class="font-bold underline hover:text-white">01 XX XX XX XX</a>
-          </p>
+        <div class="max-w-2xl mx-auto">
+          <ContactForm variant="transparent" showTitle={false} />
         </div>
       )}
 

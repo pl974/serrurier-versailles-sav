@@ -1,0 +1,294 @@
+---
+/**
+ * Page FAQ détaillée - Questions fréquentes
+ * Optimisée pour le SEO avec Schema FAQ
+ */
+
+import BaseLayout from '@layouts/BaseLayout.astro';
+import CTASection from '@components/CTASection.astro';
+import FloatingCTA from '@components/FloatingCTA.astro';
+
+const title = 'FAQ - Questions fréquentes sur la serrurerie à Versailles';
+const description = 'Toutes vos questions sur nos services de serrurerie à Versailles : tarifs, délais, interventions, garanties. Réponses détaillées par nos experts.';
+
+interface FAQItem {
+  question: string;
+  answer: string;
+  category: 'tarifs' | 'services' | 'urgence' | 'technique' | 'general';
+}
+
+const faqItems: FAQItem[] = [
+  {
+    category: 'tarifs',
+    question: 'Combien coûte une ouverture de porte à Versailles ?',
+    answer: 'Le tarif pour une ouverture de porte claquée sans casse commence à partir de 89€. Ce prix inclut le déplacement, la main d\'œuvre et l\'intervention. Pour une porte fermée à clé avec serrure complexe, le tarif peut varier entre 120€ et 180€. Nous vous communiquons toujours un devis précis et transparent par téléphone avant l\'intervention.'
+  },
+  {
+    category: 'tarifs',
+    question: 'Y a-t-il des frais supplémentaires la nuit ou le weekend ?',
+    answer: 'Contrairement à de nombreux serruriers, nous ne pratiquons pas de majoration excessive pour les interventions nocturnes ou le weekend. Notre tarif d\'urgence reste le même 24h/24 et 7j/7. Nous appliquons uniquement les tarifs standards du marché, ce qui représente une économie de 30% à 60% par rapport à la concurrence.'
+  },
+  {
+    category: 'tarifs',
+    question: 'Mon assurance peut-elle prendre en charge l\'intervention ?',
+    answer: 'Oui, dans la plupart des cas. Si vous possédez une assurance habitation avec garantie "dommages aux biens" ou "assistance dépannage", l\'ouverture de porte peut être prise en charge totalement ou partiellement. Nous vous fournissons systématiquement une facture détaillée conforme aux exigences des compagnies d\'assurance. Contactez votre assureur pour connaître les modalités exactes de remboursement.'
+  },
+  {
+    category: 'tarifs',
+    question: 'Quels moyens de paiement acceptez-vous ?',
+    answer: 'Nous acceptons tous les moyens de paiement : espèces, carte bancaire (nos serruriers sont équipés de terminaux mobiles), chèque et virement bancaire. Le paiement s\'effectue après l\'intervention, une fois le travail terminé et que vous êtes satisfait. Aucun acompte n\'est demandé.'
+  },
+  {
+    category: 'services',
+    question: 'Intervenez-vous vraiment en 30 minutes ?',
+    answer: 'Oui, nous garantissons un temps d\'intervention moyen de 20 à 30 minutes pour le secteur de Versailles et les communes limitrophes (Le Chesnay, Viroflay, Vélizy). Nos serruriers sont positionnés stratégiquement dans le secteur pour assurer une réactivité optimale. Pour les communes plus éloignées, nous vous communiquons un délai précis lors de votre appel (généralement 35 à 45 minutes).'
+  },
+  {
+    category: 'services',
+    question: 'Pouvez-vous ouvrir ma porte sans la casser ?',
+    answer: 'Dans 95% des cas, oui. Nos serruriers utilisent des techniques d\'ouverture fine non destructives qui préservent votre serrure et votre porte. Seules les serrures très anciennes, les portes blindées haut de gamme ou les situations exceptionnelles peuvent nécessiter une ouverture destructive. Dans ce cas, nous vous en informons avant d\'intervenir et nous remplaçons immédiatement la serrure.'
+  },
+  {
+    category: 'services',
+    question: 'Quelles sont les marques de serrures que vous installez ?',
+    answer: 'Nous travaillons exclusivement avec les marques leaders du marché de la serrurerie : Fichet, Picard, Vachette, Bricard, Abus, JPM, Laperche, Dom et bien d\'autres. Toutes les serrures que nous installons sont certifiées A2P (niveau 1, 2 ou 3 selon vos besoins) pour garantir une sécurité optimale et répondre aux exigences des compagnies d\'assurance.'
+  },
+  {
+    category: 'services',
+    question: 'Proposez-vous un service pour les professionnels ?',
+    answer: 'Oui, nous intervenons pour les professionnels (commerces, bureaux, copropriétés, hôtels, restaurants). Nous proposons des contrats de maintenance préventive, des interventions d\'urgence prioritaires et des tarifs négociés selon le volume. Contactez-nous pour établir un devis personnalisé adapté à votre activité.'
+  },
+  {
+    category: 'urgence',
+    question: 'Que faire en cas de porte claquée avec un enfant à l\'intérieur ?',
+    answer: 'Restez calme et appelez-nous immédiatement au 01 XX XX XX XX. C\'est une situation prioritaire : nous intervenons en urgence absolue (généralement 15-20 minutes). En attendant notre arrivée : parlez à l\'enfant pour le rassurer à travers la porte, assurez-vous qu\'il ne touche à rien de dangereux, et gardez votre téléphone à proximité. Nos serruriers sont formés pour ce type d\'urgence et ouvriront votre porte le plus rapidement possible.'
+  },
+  {
+    category: 'urgence',
+    question: 'Intervenez-vous vraiment 24h/24 même les jours fériés ?',
+    answer: 'Oui, absolument. Notre service d\'urgence est disponible 24 heures sur 24, 7 jours sur 7, y compris les nuits, weekends et jours fériés (Noël, Jour de l\'An, 14 juillet, etc.). Nous avons toujours un serrurier de garde prêt à intervenir. Appelez-nous à n\'importe quelle heure, nous décrocherons.'
+  },
+  {
+    category: 'urgence',
+    question: 'Que faire après un cambriolage ?',
+    answer: 'Suivez ces étapes : 1) Ne touchez à rien et ne nettoyez pas (preuves pour la police). 2) Contactez immédiatement la police ou gendarmerie pour déposer plainte. 3) Appelez-nous pour une intervention d\'urgence afin de sécuriser votre domicile. 4) Prenez des photos des dégâts pour votre assurance. 5) Prévenez votre assurance dans les 2 jours. Nous remplaçons immédiatement vos serrures endommagées et pouvons installer des systèmes de sécurité renforcés. Nous vous fournissons tous les documents nécessaires pour votre déclaration.'
+  },
+  {
+    category: 'urgence',
+    question: 'Ma clé s\'est cassée dans la serrure, que faire ?',
+    answer: 'Ne tentez pas d\'extraire vous-même le morceau de clé, vous risqueriez d\'endommager la serrure. Appelez-nous immédiatement. Nos serruriers disposent d\'outils spécialisés pour extraire les morceaux de clé coincés sans abîmer le cylindre. Si le cylindre est endommagé, nous le remplaçons sur place. L\'intervention prend généralement 20 à 30 minutes.'
+  },
+  {
+    category: 'technique',
+    question: 'Qu\'est-ce qu\'une serrure certifiée A2P ?',
+    answer: 'A2P (Assurance Prévention Protection) est une certification délivrée par le CNPP qui garantit la résistance d\'une serrure aux tentatives d\'effraction. Il existe 3 niveaux : A2P* (5 min de résistance), A2P** (10 min) et A2P*** (15 min). Les compagnies d\'assurance reconnaissent cette certification et peuvent exiger une serrure A2P pour couvrir les vols. Nous recommandons minimum une A2P* pour les habitations et A2P** ou *** pour les zones à risque.'
+  },
+  {
+    category: 'technique',
+    question: 'Quelle est la différence entre une serrure 3 points et 5 points ?',
+    answer: 'La différence réside dans le nombre de points de fermeture sur la porte : une serrure 3 points ferme en 3 endroits (haut, milieu, bas), une 5 points en 5 endroits (ajout de 2 points latéraux). Plus il y a de points, plus la résistance à l\'effraction est élevée. Pour une porte d\'entrée standard, 3 points suffisent. Pour une porte exposée ou de grande hauteur, 5 ou 7 points sont recommandés.'
+  },
+  {
+    category: 'technique',
+    question: 'Dois-je changer toute ma porte ou juste la serrure ?',
+    answer: 'Dans la plupart des cas, remplacer uniquement la serrure suffit. C\'est plus économique (150€-400€ vs 1500€-3000€ pour une porte complète) et tout aussi sécurisé si vous choisissez une serrure certifiée A2P adaptée. Le remplacement de la porte entière n\'est nécessaire que si : la porte est très abîmée, le bâti est endommagé, vous souhaitez une porte blindée certifiée complète (BP1, BP2, BP3), ou pour des raisons esthétiques.'
+  },
+  {
+    category: 'technique',
+    question: 'Qu\'est-ce que le blindage de porte ?',
+    answer: 'Le blindage de porte consiste à renforcer votre porte existante en y ajoutant une plaque métallique en acier et en remplaçant la serrure par un modèle multipoints A2P. C\'est une solution intermédiaire entre la serrure seule et la porte blindée complète. Avantages : coût modéré (800€-1500€), conservation de votre porte (pas de changement d\'apparence extérieure), amélioration de l\'isolation phonique et thermique, et sécurité significativement renforcée.'
+  },
+  {
+    category: 'technique',
+    question: 'Puis-je faire reproduire une clé protégée ?',
+    answer: 'Les clés protégées (clés à carte ou brevetées) ne peuvent être reproduites que par le détenteur de la carte de propriété. C\'est un système de sécurité qui empêche la copie non autorisée. Si vous avez perdu votre carte, vous devez contacter le fabricant de la serrure avec une preuve de propriété (facture d\'installation, justificatif de domicile). Les clés standards non protégées peuvent être reproduites immédiatement, souvent en quelques minutes.'
+  },
+  {
+    category: 'general',
+    question: 'Fournissez-vous une facture pour l\'assurance ?',
+    answer: 'Oui, systématiquement. Nous vous fournissons une facture détaillée conforme aux exigences des compagnies d\'assurance. Elle mentionne : la nature de l\'intervention, la date et l\'heure, le détail des prestations, le matériel utilisé (marque et référence), la main d\'œuvre, et le montant total TTC. Cette facture est nécessaire pour obtenir le remboursement de votre assurance habitation.'
+  },
+  {
+    category: 'general',
+    question: 'Êtes-vous assurés et certifiés ?',
+    answer: 'Oui, nous disposons de toutes les assurances et certifications professionnelles : assurance responsabilité civile professionnelle, garantie décennale, certification des serruriers par les fabricants (Fichet, Picard, etc.), et agrément pour l\'installation de serrures A2P. Nos serruriers sont formés en continu aux nouvelles techniques et aux nouveaux produits. Nous pouvons fournir nos attestations sur demande.'
+  },
+  {
+    category: 'general',
+    question: 'Combien de temps dure une installation de serrure multipoints ?',
+    answer: 'Une installation de serrure multipoints prend généralement 1h30 à 2h30 selon le modèle et la configuration de votre porte. Ce délai comprend : la dépose de l\'ancienne serrure, les ajustements nécessaires sur la porte, la pose de la nouvelle serrure, les réglages fins, et les tests de fonctionnement. Pour une porte blindée complète, comptez une demi-journée à une journée selon la complexité.'
+  },
+  {
+    category: 'general',
+    question: 'Proposez-vous une garantie sur vos interventions ?',
+    answer: 'Oui, toutes nos interventions sont garanties. Pour une ouverture de porte, la prestation est garantie immédiatement (si un problème survient juste après, nous revenons gratuitement). Pour un changement de serrure ou une installation, vous bénéficiez de la garantie fabricant (généralement 2 à 5 ans selon les marques) plus notre garantie main d\'œuvre de 2 ans. En cas de défaut, nous intervenons rapidement et sans frais supplémentaires.'
+  },
+  {
+    category: 'general',
+    question: 'Comment vérifier que je fais appel à un serrurier sérieux ?',
+    answer: 'Voici les points de vigilance : 1) Le serrurier vous donne un devis clair par téléphone avant de se déplacer. 2) Il arrive avec un véhicule identifié et du matériel professionnel. 3) Il vous présente une carte professionnelle. 4) Il vous explique les solutions possibles et leurs coûts. 5) Il ne vous pousse pas vers la solution la plus chère. 6) Il vous remet une facture détaillée. 7) Il accepte plusieurs moyens de paiement (pas que le liquide). 8) L\'entreprise a un vrai siège social (vérifiable). Méfiez-vous des serruriers qui refusent de donner un devis ou qui multiplient les frais sur place.'
+  },
+  {
+    category: 'general',
+    question: 'Dans quelles villes intervenez-vous ?',
+    answer: 'Nous intervenons principalement à Versailles et dans toutes les communes environnantes des Yvelines : Le Chesnay-Rocquencourt, Viroflay, Vélizy-Villacoublay, Saint-Cyr-l\'École, Jouy-en-Josas, Buc, Bailly, Les Loges-en-Josas, Rocquencourt, et autres communes limitrophes. Pour les communes plus éloignées, contactez-nous pour vérifier notre disponibilité. Nos temps d\'intervention varient de 15 à 45 minutes selon la localisation.'
+  }
+];
+
+const categories = {
+  'tarifs': 'Tarifs et paiements',
+  'services': 'Nos services',
+  'urgence': 'Urgences et dépannages',
+  'technique': 'Questions techniques',
+  'general': 'Questions générales'
+};
+
+// Schema.org pour FAQ
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer
+    }
+  }))
+};
+---
+
+<BaseLayout title={title} description={description} schema={faqSchema}>
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-secondary-900 to-secondary-800 text-white py-16 md:py-20">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-heading font-bold mb-6">
+          Questions fréquentes
+        </h1>
+        <p class="text-xl text-secondary-100 mb-8">
+          Toutes les réponses à vos questions sur nos services de serrurerie à Versailles
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:+33-1-XX-XX-XX-XX" class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:scale-105 shadow-xl">
+            Appelez-nous : 01 XX XX XX XX
+          </a>
+          <a href="/contact" class="border-2 border-white hover:bg-white hover:text-secondary-900 px-8 py-4 rounded-lg font-bold text-lg transition-all">
+            Formulaire de contact
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation par catégorie -->
+  <section class="py-8 bg-white border-b border-gray-200 sticky top-0 z-30">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap gap-3 justify-center">
+        <button class="category-filter active" data-category="all">
+          Toutes les questions
+        </button>
+        {Object.entries(categories).map(([key, label]) => (
+          <button class="category-filter" data-category={key}>
+            {label}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ par catégorie -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-secondary-50 to-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        {Object.entries(categories).map(([categoryKey, categoryLabel]) => {
+          const categoryItems = faqItems.filter(item => item.category === categoryKey);
+          return (
+            <div class="faq-category mb-16" data-category={categoryKey}>
+              <h2 class="text-3xl font-heading font-bold text-secondary-900 mb-8 pb-4 border-b-2 border-primary-600">
+                {categoryLabel}
+              </h2>
+              <div class="space-y-4">
+                {categoryItems.map((item, index) => (
+                  <details class="faq-item bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow group">
+                    <summary class="cursor-pointer list-none p-6">
+                      <div class="flex items-start justify-between gap-4">
+                        <h3 class="text-lg font-bold text-secondary-900 pr-4 flex-1">
+                          {item.question}
+                        </h3>
+                        <svg class="w-6 h-6 text-primary-600 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                      </div>
+                    </summary>
+                    <div class="px-6 pb-6">
+                      <p class="text-secondary-700 leading-relaxed whitespace-pre-line">
+                        {item.answer}
+                      </p>
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <CTASection
+        variant="primary"
+        title="Vous ne trouvez pas votre réponse ?"
+        description="Contactez-nous directement par téléphone ou via notre formulaire. Nos experts sont là pour répondre à toutes vos questions."
+        showForm={false}
+      />
+    </div>
+  </section>
+
+  <!-- Bouton CTA flottant -->
+  <FloatingCTA variant="both" />
+</BaseLayout>
+
+<style>
+  .category-filter {
+    @apply px-6 py-3 rounded-full font-semibold transition-all border-2 border-gray-300 text-secondary-700 hover:border-primary-600 hover:text-primary-600;
+  }
+
+  .category-filter.active {
+    @apply bg-primary-600 text-white border-primary-600;
+  }
+
+  .faq-item[open] {
+    @apply ring-2 ring-primary-600;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.category-filter');
+    const faqCategories = document.querySelectorAll('.faq-category');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const category = button.getAttribute('data-category');
+
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        // Filter categories
+        faqCategories.forEach(cat => {
+          const catData = cat.getAttribute('data-category');
+          if (category === 'all' || catData === category) {
+            cat.classList.remove('hidden');
+          } else {
+            cat.classList.add('hidden');
+          }
+        });
+      });
+    });
+  });
+</script>
